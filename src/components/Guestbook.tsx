@@ -196,7 +196,6 @@ export default function Guestbook() {
         const data = new Uint8Array(buf);
         const drawings: Array<{ id: string; data: Uint8Array }> = [];
         let startIndex = 0;
-
         for (let i = 0; i < data.length; i++) {
           if (data[i] === 255) {
             // Found a delimiter, extract the drawing
@@ -206,7 +205,9 @@ export default function Guestbook() {
           }
         }
         // Include last drawing
-        drawings.push({ id: `drawing-${startIndex}`, data: data.slice(startIndex, data.length) });
+        if (startIndex < data.length) {
+          drawings.push({ id: `drawing-${startIndex}`, data: data.slice(startIndex, data.length) });
+        }
 
         setDrawings(drawings.reverse());
       })
