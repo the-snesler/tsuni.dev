@@ -6,16 +6,16 @@
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist",
+    "directory": "./dist"
   },
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
   "r2_buckets": [
     {
       "binding": "DRAWINGS",
       "bucket_name": "guestbook-drawings",
-      "preview_bucket_name": "guestbook-drawings-dev",
-    },
-  ],
+      "preview_bucket_name": "guestbook-drawings-dev"
+    }
+  ]
 }

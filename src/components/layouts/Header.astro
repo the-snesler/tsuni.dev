@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname;
 const links = [
   { name: 'Home', href: '/', icon: false },
   { name: 'Blog', href: '/posts', icon: false },
-  { name: 'Uses', href: '/uses', icon: false },
+  { name: 'Uses', href: '/uses', icon: false }
 ];
 ---
 
@@ -42,7 +42,7 @@ const links = [
                   href={link.href}
                   class:list={[
                     'inset-shadow-accent flex h-full items-center gap-2 rounded-md px-2 inset-shadow-none transition-[translate,background,box-shadow] group-hover:-translate-y-1.5 group-hover:bg-gray-200 group-hover:inset-shadow-xs group-active:translate-y-0 group-active:bg-gray-300 dark:group-hover:bg-gray-700 dark:group-active:bg-gray-700',
-                    { 'bg-gray-200 dark:bg-gray-700': isActive },
+                    { 'bg-gray-200 dark:bg-gray-700': isActive }
                   ]}
                 >
                   {/* {link.icon && <NowPlayingIcon />} */}

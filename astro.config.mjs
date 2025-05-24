@@ -19,12 +19,12 @@ export default defineConfig({
       GISCUS_REPO_ID: envField.string({ context: 'client', access: 'public' }),
       GISCUS_CATEGORY: envField.string({ context: 'client', access: 'public' }),
       GISCUS_CATEGORY_ID: envField.string({ context: 'client', access: 'public' }),
-      GUESTBOOK_SECRET_KEY: envField.string({ context: 'server', access: 'secret' }),
-    },
+      GUESTBOOK_SECRET_KEY: envField.string({ context: 'server', access: 'secret' })
+    }
   },
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss()]
   },
 
   markdown: {
@@ -33,10 +33,10 @@ export default defineConfig({
     shikiConfig: {
       themes: {
         light: 'catppuccin-latte',
-        dark: 'catppuccin-frappe',
+        dark: 'catppuccin-frappe'
       },
-      defaultColor: false,
-    },
+      defaultColor: false
+    }
   },
 
   experimental: {
@@ -47,7 +47,7 @@ export default defineConfig({
         cssVariable: '--font-rubik',
         weights: ['300 900'],
         fallbacks: ['ui-rounded', 'system-ui', 'sans-serif'],
-        optimizedFallbacks: false,
+        optimizedFallbacks: false
       },
       {
         provider: 'local',
@@ -58,13 +58,13 @@ export default defineConfig({
           {
             weight: 400,
             style: 'normal',
-            src: ['./src/assets/fonts/MonaspaceNeon-Regular.woff'],
-          },
-        ],
-      },
-    ],
+            src: ['./src/assets/fonts/MonaspaceNeon-Regular.woff']
+          }
+        ]
+      }
+    ]
   },
 
   integrations: [icon(), mdx(), preact({ compat: true })],
-  adapter: cloudflare(),
+  adapter: cloudflare()
 });

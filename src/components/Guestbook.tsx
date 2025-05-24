@@ -143,8 +143,8 @@ export default function Guestbook() {
         method: 'POST',
         body: drawingData,
         headers: {
-          'Content-Type': 'application/octet-stream',
-        },
+          'Content-Type': 'application/octet-stream'
+        }
       });
       if (response.ok) {
         dispatch('SUBMIT_SUCCESS');
@@ -267,8 +267,8 @@ export default function Guestbook() {
         method: 'DELETE',
         headers: {
           'secret-key': guestbookKey,
-          'drawing-index': index.toString(),
-        },
+          'drawing-index': index.toString()
+        }
       });
 
       if (response.ok) {
@@ -387,7 +387,7 @@ export default function Guestbook() {
               id="new-drawing"
               className={`bg-bkg fade-out fill-mode-forwards flex aspect-square h-full w-full cursor-pointer items-center justify-center rounded-sm shadow-sm transition-opacity duration-500 hover:bg-gray-100 dark:hover:bg-gray-800 ${state === 'closingSuccess' ? 'animate-out' : ''}`}
               style={{
-                opacity: state !== 'closed' ? 0.6 : 1,
+                opacity: state !== 'closed' ? 0.6 : 1
               }}
               onClick={() => dispatch('TOGGLE_CANVAS')}
             >

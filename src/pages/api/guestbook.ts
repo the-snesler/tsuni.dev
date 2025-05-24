@@ -14,8 +14,8 @@ export const GET: APIRoute = async ({ locals }) => {
       status: 200,
       headers: {
         'Content-Type': 'application/octet-stream',
-        'Access-Control-Allow-Origin': '*',
-      },
+        'Access-Control-Allow-Origin': '*'
+      }
     });
   } catch (e) {
     console.error('Error retrieving drawings:', e);

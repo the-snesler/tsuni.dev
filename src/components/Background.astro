@@ -16,14 +16,14 @@ const { isActive = false, focus = false, dark1 = '#333333', dark2 = '#1a1a1a', l
   <div
     class="absolute inset-0"
     style={{
-      background: `linear-gradient(90deg, ${dark1}, ${dark2}`,
+      background: `linear-gradient(90deg, ${dark1}, ${dark2}`
     }}
   >
   </div>
   <div
     class:list={[
       'absolute inset-0 bg-gradient-to-r from-indigo-900 to-purple-950 transition-opacity duration-300',
-      { 'opacity-0': isActive, 'opacity-100': !isActive },
+      { 'opacity-0': isActive, 'opacity-100': !isActive }
     ]}
   >
   </div>
@@ -31,14 +31,14 @@ const { isActive = false, focus = false, dark1 = '#333333', dark2 = '#1a1a1a', l
   <div
     class:list={['absolute inset-0 transition-opacity duration-300 dark:opacity-0', { 'opacity-0': !isActive, 'opacity-100': isActive }]}
     style={{
-      background: `linear-gradient(90deg, ${light1}, ${light2})`,
+      background: `linear-gradient(90deg, ${light1}, ${light2})`
     }}
   >
   </div>
   <div
     class:list={[
       'absolute inset-0 bg-gradient-to-r from-pink-200 to-purple-300 transition-opacity duration-300 dark:opacity-0',
-      { 'opacity-0': isActive, 'opacity-100': !isActive },
+      { 'opacity-0': isActive, 'opacity-100': !isActive }
     ]}
   >
   </div>

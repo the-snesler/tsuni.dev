@@ -164,12 +164,12 @@ const blogCollection = defineCollection({
     title: z.string(),
     date: z.date(),
     excerpt: z.string(),
-    image: z.string().optional(),
-  }),
+    image: z.string().optional()
+  })
 });
 
 export const collections = {
-  blog: blogCollection,
+  blog: blogCollection
 };
 ```
 
@@ -247,7 +247,7 @@ export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
   return blogEntries.map(entry => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { entry }
   }));
 }
 
@@ -265,7 +265,7 @@ const { Content } = await entry.render();
         entry.data.date.toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
-          day: 'numeric',
+          day: 'numeric'
         })
       }
     </time>

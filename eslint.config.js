@@ -10,7 +10,7 @@ import typescript from 'typescript-eslint';
  */
 export default typescript.config(
   {
-    ignores: ['**/node_modules/', '**/dist/', '**/build/', '**/pagefind/', '**/.svelte-kit/', '**/.astro/', '**/.next/', '**/.vercel/'],
+    ignores: ['**/node_modules/', '**/dist/', '**/build/', '**/pagefind/', '**/.svelte-kit/', '**/.astro/', '**/.next/', '**/.vercel/']
   },
   // JavaScript
   javascript.configs.recommended,
@@ -18,8 +18,8 @@ export default typescript.config(
   typescript.configs.recommended,
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-    },
+      '@typescript-eslint/no-explicit-any': 'off'
+    }
   },
   // Astro
   astro.configs.recommended,
@@ -27,6 +27,6 @@ export default typescript.config(
   {
     files: ['**/*.tsx', '**/*.jsx'],
     ...react.configs.flat.recommended,
-    ...react.configs.flat['jsx-runtime'],
+    ...react.configs.flat['jsx-runtime']
   }
 );

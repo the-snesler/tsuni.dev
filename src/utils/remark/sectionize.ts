@@ -40,7 +40,7 @@ export default function remarkSectionize() {
 
       heading.data.hProperties = {
         ...(heading.data.hProperties as object),
-        id: slug,
+        id: slug
       };
 
       const section = {
@@ -50,9 +50,9 @@ export default function remarkSectionize() {
         data: {
           hName: 'section',
           hProperties: {
-            id: slug,
-          },
-        },
+            id: slug
+          }
+        }
       };
 
       parent.children.splice(startIndex, section.children.length, section);

@@ -2,7 +2,7 @@
   "semi": true,
   "astroAllowShorthand": true,
   "printWidth": 150,
-  "trailingComma": "es5",
+  "trailingComma": "none",
   "bracketSpacing": true,
   "arrowParens": "avoid",
   "tabWidth": 2,

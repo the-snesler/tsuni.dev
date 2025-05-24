@@ -7,12 +7,12 @@ const gridColsFlowPlugin = plugin(({ matchUtilities, theme }: { matchUtilities: 
     {
       'grid-cols-flow': (value: any) => {
         return {
-          'grid-template-columns': `repeat(auto-fill, minmax(${value}, 1fr))`,
+          'grid-template-columns': `repeat(auto-fill, minmax(${value}, 1fr))`
         };
-      },
+      }
     },
     {
-      values: theme('width'),
+      values: theme('width')
     }
   );
 });
@@ -22,12 +22,12 @@ const animationDelayPlugin = plugin(({ matchUtilities, theme }: { matchUtilities
     {
       'animation-delay': (value: any) => {
         return {
-          'animation-delay': value,
+          'animation-delay': value
         };
-      },
+      }
     },
     {
-      values: theme('transitionDelay'),
+      values: theme('transitionDelay')
     }
   );
 });
@@ -38,12 +38,12 @@ const animationFillPlugin = plugin(
       {
         'animation-fill': (value: any) => {
           return {
-            'animation-fill-mode': value,
+            'animation-fill-mode': value
           };
-        },
+        }
       },
       {
-        values: theme('animationFillMode'),
+        values: theme('animationFillMode')
       }
     );
   },
@@ -53,9 +53,9 @@ const animationFillPlugin = plugin(
         none: 'none',
         forward: 'forwards',
         backward: 'backwards',
-        both: 'both',
-      },
-    },
+        both: 'both'
+      }
+    }
   }
 );
 
@@ -73,28 +73,28 @@ const config: Config = {
               paddingTop: theme('padding[1]'),
               paddingRight: theme('padding[1.5]'),
               paddingBottom: theme('padding[1]'),
-              paddingLeft: theme('padding[1.5]'),
+              paddingLeft: theme('padding[1.5]')
             },
             'code::before': {
-              content: 'normal',
+              content: 'normal'
             },
             'code::after': {
-              content: 'normal',
+              content: 'normal'
             },
             p: {
               '&::before': {
-                content: 'none !important',
+                content: 'none !important'
               },
               '&::after': {
-                content: 'none !important',
-              },
-            },
-          },
-        },
-      }),
-    },
+                content: 'none !important'
+              }
+            }
+          }
+        }
+      })
+    }
   },
-  plugins: [gridColsFlowPlugin, animationDelayPlugin, animationFillPlugin, typography],
+  plugins: [gridColsFlowPlugin, animationDelayPlugin, animationFillPlugin, typography]
 };
 
 export default config;

@@ -11,7 +11,7 @@ const { class: className, heightLimit = true, ...rest } = Astro.props;
   <div
     class:list={[
       'border-bkg hover:border-accent group relative block w-full overflow-hidden rounded-xl border-2 brightness-100 transition-[translate,filter] duration-200 hover:-translate-y-1.5 hover:border-4 active:translate-y-0 active:brightness-95',
-      { 'h-52': heightLimit },
+      { 'h-52': heightLimit }
     ]}
   >
     <slot />

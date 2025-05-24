@@ -49,8 +49,8 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
     return new Response(content, {
       headers: {
         'Content-Type': 'application/octet-stream',
-        'Access-Control-Allow-Origin': '*',
-      },
+        'Access-Control-Allow-Origin': '*'
+      }
     });
   } catch (e) {
     return new Response('Error retrieving drawings', { status: 500 });

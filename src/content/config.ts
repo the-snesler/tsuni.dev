@@ -11,10 +11,10 @@ const blogCollection = defineCollection({
       date: z.date(),
       excerptImageUrl: image().optional(),
       excerptImageAlt: z.string().optional(),
-      excerpt: z.string().optional(),
-    }),
+      excerpt: z.string().optional()
+    })
 });
 
 export const collections = {
-  blog: blogCollection,
+  blog: blogCollection
 };
