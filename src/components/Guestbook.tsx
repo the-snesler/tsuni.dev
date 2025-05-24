@@ -397,7 +397,7 @@ export default function Guestbook() {
           )}
         </div>
         {drawingImages.map(({ id, image }, index) => (
-          <div className="bg-bkg relative aspect-square rounded-sm" key={id}>
+          <div className="bg-bkg relative aspect-square rounded-sm animate-in fade-in" style={{ animationDelay: `${index * 50}ms` }} key={id}>
             <img src={image} className="absolute inset-0 -z-10 w-full rounded-sm object-cover blur-xs" />
             <img src={image} alt={`Drawing ${id}`} className="pixelated h-full w-full rounded-sm object-cover" />
             {guestbookKey && state !== 'complete' && (

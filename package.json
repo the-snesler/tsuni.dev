@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.9.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "wrangler types && astro check && astro build",
+    "build": "astro build",
     "preview": "wrangler types && astro build && wrangler dev",
     "deploy": "wrangler types && astro check && astro build && wrangler deploy",
     "astro": "astro",
