@@ -205,6 +205,8 @@ export default function Guestbook() {
             startIndex = i + 1;
           }
         }
+        // Include last drawing
+        drawings.push({ id: `drawing-${startIndex}`, data: data.slice(startIndex, data.length) });
 
         setDrawings(drawings.reverse());
       })

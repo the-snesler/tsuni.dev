@@ -1,68 +1,67 @@
 .tooltipWrapper {
-    animation: fade-out-down 0.2s;
-    position: absolute;
-    opacity: 0;
-    z-index: 1;
-    bottom: 150%;
-    right: 50%;
-    pointer-events: none;
-    // text-align: center;
+  animation: fade-out-down 0.2s;
+  position: absolute;
+  opacity: 0;
+  z-index: 1;
+  bottom: 150%;
+  right: 50%;
+  pointer-events: none;
+  /* text-align: center; */
 
-    .tooltip {
-        position: relative;
-        right: -50%;
-        padding: 0.25rem 0.5rem;
-        font-size: 0.85rem;
-        background: #444;
-        border-radius: 5px;
+  .tooltip {
+    position: relative;
+    right: -50%;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    background: #444;
+    border-radius: 5px;
 
-        &::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
-            border-top: 7px solid #444;
-        }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 7px solid #444;
     }
+  }
 }
 
 .tooltipParent {
-    &:hover {
-        ~.tooltipWrapper,
-        .tooltipWrapper {
-            opacity: 100;
-            display: block;
-            animation: fade-in-up 0.2s;
-        }
+  &:hover {
+    ~ .tooltipWrapper,
+    .tooltipWrapper {
+      opacity: 100;
+      display: block;
+      animation: fade-in-up 0.2s;
     }
+  }
 }
 
 @keyframes fade-in-up {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 
-    to {
-        opacity: 100;
-        transform: translateY(0);
-    }
+  to {
+    opacity: 100;
+    transform: translateY(0);
+  }
 }
 
-
 @keyframes fade-out-down {
-    from {
-        opacity: 100;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 100;
+    transform: translateY(0);
+  }
 
-    to {
-        opacity: 0;
-        transform: translateY(10px);
-    }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }

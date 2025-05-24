@@ -31,7 +31,6 @@
   }
 }
 
-
 .pastelTextHover {
   transition: color 0.2s ease-in-out;
 
@@ -52,11 +51,10 @@
   }
 }
 
-
 .animateFadeUp {
   opacity: 0;
   display: inline-block;
-  animation: fadeUp 0.3s cubic-bezier(.34, 0, .44, 1.76) forwards;
+  animation: fadeUp 0.3s cubic-bezier(0.34, 0, 0.44, 1.76) forwards;
 }
 
 @keyframes fadeUp {
@@ -76,8 +74,7 @@
 .gradientTitleText span {
   background-clip: text;
   color: transparent;
-  background-image: linear-gradient(var(--color-violet-400),
-      var(--color-violet-500));
+  background-image: linear-gradient(var(--color-violet-400), var(--color-violet-500));
 }
 
 @media (prefers-reduced-motion) {

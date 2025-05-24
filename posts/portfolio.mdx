@@ -1,10 +1,10 @@
 ---
-title: "Build Your Own Portfolio Website For Free"
-subtitle: "A step-by-step guide to creating a portfolio and blog using Astro, GitHub, and Markdown."
+title: 'Build Your Own Portfolio Website For Free'
+subtitle: 'A step-by-step guide to creating a portfolio and blog using Astro, GitHub, and Markdown.'
 isVisible: true
 date: 2025-04-16
-excerptImageUrl: "../src/assets/images/portfoliotemplate.png"
-excerptImageAlt: "A screenshot of a blank portfolio website"
+excerptImageUrl: '../src/assets/images/portfoliotemplate.png'
+excerptImageAlt: 'A screenshot of a blank portfolio website'
 excerpt: "Whether you're trying to look hireable or just link out from your social bios, a live website (portfolio and blog) that you build yourself will help you stand out."
 ---
 
@@ -76,7 +76,7 @@ Your HTML/CSS from CodePen drops in _almost_ unchanged.
 
 ```astro
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro';
 ---
 
 <!-- Example -->
@@ -156,10 +156,10 @@ Astro's content collections are a way to define the structure of your content. Y
 Create `src/content/config.ts`:
 
 ```ts
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z } from 'astro:content';
 
 const blogCollection = defineCollection({
-  type: "content",
+  type: 'content',
   schema: z.object({
     title: z.string(),
     date: z.date(),
@@ -181,9 +181,9 @@ Create at least one Markdown file in `src/content/blog/`.
 
 ```md
 ---
-title: "First Blog Post"
+title: 'First Blog Post'
 date: 2025-04-16
-excerpt: "A quick dive into making your first blog post in Astro."
+excerpt: 'A quick dive into making your first blog post in Astro.'
 ---
 
 Here's your actual blog content. Markdown works here!
@@ -198,11 +198,9 @@ Back in your `src/pages/index.astro`, import your blog collection at the top of 
 
 ```astro
 ---
-import { getCollection } from "astro:content";
-const posts = await getCollection("blog");
-const sortedPosts = posts.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-); // sorts by date, if you like
+import { getCollection } from 'astro:content';
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()); // sorts by date, if you like
 ---
 ```
 
@@ -215,11 +213,9 @@ Then, replace the dummy blog section further down the file with this:
     <p>Thoughts, tutorials, and insights</p>
     <div class="blog-grid">
       {
-        sortedPosts.map((post) => (
+        sortedPosts.map(post => (
           <div class="blog-card">
-            <div class="blog-date">
-              {post.data.date.toLocaleDateString("en-US")}
-            </div>
+            <div class="blog-date">{post.data.date.toLocaleDateString('en-US')}</div>
             <h3>{post.data.title}</h3>
             <p>{post.data.excerpt}</p>
             <a href={`/blog/${post.slug}`}>
@@ -243,13 +239,13 @@ Make `src/pages/blog/[...slug].astro`:
 
 ```astro
 ---
-import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
 // Generate paths for all blog posts
 export async function getStaticPaths() {
-  const blogEntries = await getCollection("blog");
-  return blogEntries.map((entry) => ({
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
@@ -266,10 +262,10 @@ const { Content } = await entry.render();
     <h1>{entry.data.title}</h1>
     <time datetime={entry.data.date.toISOString()}>
       {
-        entry.data.date.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
+        entry.data.date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
         })
       }
     </time>

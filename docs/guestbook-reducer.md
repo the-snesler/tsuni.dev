@@ -21,8 +21,8 @@ stateDiagram-v2
 ## State Transition Types
 
 ```typescript
-type DrawingState = { 
-  state: 'closed' | 'drawing' | 'submitting' | 'closing' | 'closingSuccess' | 'complete'; 
+type DrawingState = {
+  state: 'closed' | 'drawing' | 'submitting' | 'closing' | 'closingSuccess' | 'complete';
   error: boolean;
 };
 
@@ -32,17 +32,20 @@ type DrawingAction = 'OPEN_CANVAS' | 'SUBMIT' | 'SUBMIT_SUCCESS' | 'SUBMIT_ERROR
 ## Implementation Steps
 
 1. Create reducer function to manage state transitions:
+
    - Handle all state transitions based on current state and action
    - Separate closing states for success vs manual/error closes
    - Validate state changes with TypeScript
 
 2. Add CSS transitions for closing states:
+
    - Use consistent animation duration (700ms)
    - Match existing fade-out animation style
    - closingSuccess: Animate out canvas + show preview in grid
    - closing: Simple fade out animation
 
 3. Update component:
+
    - Replace multiple useState calls with useReducer
    - Add animation handlers for closing transitions
    - Update conditional rendering based on new state

@@ -1,6 +1,5 @@
 import typography from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
-import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
 const gridColsFlowPlugin = plugin(({ matchUtilities, theme }: { matchUtilities: any; theme: any }) => {
