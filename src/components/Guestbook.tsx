@@ -258,6 +258,7 @@ export default function Guestbook() {
   }, [drawings]);
 
   const handleDeleteDrawing = async (index: number) => {
+    const originalIndex = drawings.length - 1 - index; // Adjust index for reverse order
     if (!guestbookKey) {
       console.error('Guestbook key not found.');
       return;
@@ -268,12 +269,11 @@ export default function Guestbook() {
         method: 'DELETE',
         headers: {
           'secret-key': guestbookKey,
-          'drawing-index': index.toString()
+          'drawing-index': originalIndex.toString()
         }
       });
 
       if (response.ok) {
-        // Refresh drawings after deletion
         fetchDrawings();
       } else {
         console.error('Error deleting drawing:', await response.text());
