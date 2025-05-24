@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { GUESTBOOK_SECRET_KEY } from 'astro:env/server';
+import { GUESTBOOK_SECRET_KEY, GUESTBOOK_WEBHOOK } from 'astro:env/server';
 
 const DRAWINGS_KEY = 'drawings.bin';
 const delimiter = new Uint8Array([255]);
@@ -36,6 +36,14 @@ export const POST: APIRoute = async ({ locals, request }) => {
       newData = buffer;
     }
     await locals.runtime.env.DRAWINGS.put(DRAWINGS_KEY, newData);
+
+    // Send notification to Discord webhook
+    await fetch(GUESTBOOK_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: 'A new drawing has been posted.' })
+    });
+
     return new Response('Drawing received', { status: 200 });
   } catch (e) {
     console.error('Error saving drawing:', e);

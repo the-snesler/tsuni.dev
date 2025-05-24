@@ -17,5 +17,17 @@
       "bucket_name": "guestbook-drawings",
       "preview_bucket_name": "guestbook-drawings-dev"
     }
-  ]
+  ],
+  "routes": [
+    {
+      "pattern": "tsuni.dev",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "GISCUS_REPO": "TetraTsunami/website",
+    "GISCUS_REPO_ID": "R_kgDOH7I1vQ",
+    "GISCUS_CATEGORY": "Giscus",
+    "GISCUS_CATEGORY_ID": "DIC_kwDOH7I1vc4CkBK1",
+  }
 }

@@ -19,7 +19,8 @@ export default defineConfig({
       GISCUS_REPO_ID: envField.string({ context: 'client', access: 'public' }),
       GISCUS_CATEGORY: envField.string({ context: 'client', access: 'public' }),
       GISCUS_CATEGORY_ID: envField.string({ context: 'client', access: 'public' }),
-      GUESTBOOK_SECRET_KEY: envField.string({ context: 'server', access: 'secret' })
+      GUESTBOOK_SECRET_KEY: envField.string({ context: 'server', access: 'secret' }),
+      GUESTBOOK_WEBHOOK: envField.string({ context: 'server', access: 'secret' })
     }
   },
 
