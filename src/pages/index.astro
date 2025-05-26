@@ -1,4 +1,5 @@
 ---
+import BackgroundWater from '@/components/BackgroundWater.astro';
 import Guestbook from '@/components/Guestbook';
 import HomeHero from '@/components/HomeHero.astro';
 import Projects from '@/components/layouts/Projects.astro';
@@ -7,7 +8,8 @@ import textStyles from '@/styles/text.module.css';
 ---
 
 <Layout>
-  <main class="flex flex-col pt-16 pb-8">
+  <BackgroundWater />
+  <main class="relative flex flex-col pt-16 pb-8">
     <HomeHero />
     <div
       class="bg-bkg/55 shadow-i-lg animate-in fade-in animation-delay-[2s] animation-fill-backward mb-32 flex max-w-7xl flex-col gap-32 self-center rounded-3xl px-1 pt-24 pb-8 backdrop-blur-sm transition-colors sm:mx-4 md:mx-8 md:px-6 lg:mx-16"

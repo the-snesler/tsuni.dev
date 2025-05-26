@@ -1,0 +1,124 @@
+---
+import type { WaterConfig } from './water/types.ts';
+
+interface Props extends WaterConfig {
+  class?: string;
+}
+
+const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0.02, class: className = '', ...rest } = Astro.props;
+---
+
+<canvas
+  id="water-canvas"
+  height={height / 4}
+  class:list={['pixelated pointer-events-none absolute top-0 right-0 left-0 overflow-hidden', className]}
+  style={{ minHeight: `${height}px` }}
+  data-height={height}
+  data-subdivisions={subdivisions}
+  data-animation-speed={animationSpeed}
+  data-wave-amplitude={waveAmplitude}
+  {...rest}></canvas>
+<div class="light-beam hidden h-[600px] w-[200px] translate-x-[40vw] md:block"></div>
+<div class="light-beam h-full w-full"></div>
+
+<style>
+  .light-beam {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    max-width: 300px;
+    max-height: 800px;
+    pointer-events: none;
+    transform: translateX(-50%) skewX(-20deg);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 80%);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+    mix-blend-mode: screen;
+    filter: blur(16px);
+  }
+
+  @media (max-width: 640px) {
+    .light-beam {
+      width: 200px;
+      height: 600px;
+      transform: translateX(-50%) skewX(-15deg);
+    }
+  }
+</style>
+
+<script>
+  import { WaterEffect } from './water/WaterEffect.ts';
+
+  let waterEffect: WaterEffect | null = null;
+
+  function initWaterEffect() {
+    const canvas = document.getElementById('water-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    // Set canvas size
+    canvas.width = window.innerWidth / 4;
+    canvas.style.minWidth = `${window.innerWidth}px`;
+
+    // Get config from data attributes
+    const config = {
+      height: parseInt(canvas.dataset.height || '300'),
+      perspective: parseFloat(canvas.dataset.perspective || '60'),
+      subdivisions: parseInt(canvas.dataset.subdivisions || '32'),
+      animationSpeed: parseFloat(canvas.dataset.animationSpeed || '1.0'),
+      waveAmplitude: parseFloat(canvas.dataset.waveAmplitude || '0.02'),
+      // thread in dark‐mode flag:
+      theme: document.documentElement.classList.contains('dark')
+    };
+
+    try {
+      waterEffect = new WaterEffect(canvas, config);
+    } catch (error) {
+      console.warn('WebGL water effect failed to initialize:', error);
+      // Fallback: hide canvas if WebGL fails
+      canvas.style.display = 'none';
+    }
+  }
+
+  function handleResize() {
+    if (!waterEffect) return;
+    const canvas = document.getElementById('water-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    canvas.width = window.innerWidth / 4;
+    canvas.style.minWidth = `${window.innerWidth}px`;
+    waterEffect.resize(canvas.width, canvas.height);
+  }
+
+  function cleanup() {
+    if (waterEffect) {
+      waterEffect.destroy();
+      waterEffect = null;
+    }
+  }
+
+  // Handle reduced motion preference
+  function handleMotionPreference() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (waterEffect) {
+      if (prefersReducedMotion) {
+        waterEffect.pause();
+      } else {
+        waterEffect.resume();
+      }
+    }
+  }
+  // Handle page transitions (Astro)
+  document.addEventListener('astro:page-load', initWaterEffect);
+  document.addEventListener('astro:before-preparation', cleanup);
+
+  // Handle resize
+  window.addEventListener('resize', handleResize);
+
+  // Handle motion preference changes
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  motionQuery.addEventListener('change', handleMotionPreference);
+
+  // Initial motion preference check
+  handleMotionPreference();
+
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', cleanup);
+</script>

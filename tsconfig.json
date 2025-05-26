@@ -1,21 +1,20 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
+    "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@images/*": ["src/assets/images/*"]
+      "@images/*": ["src/assets/images/*"],
+      "react": ["./node_modules/preact/compat/"],
+      "react/jsx-runtime": ["./node_modules/preact/jsx-runtime"],
+      "react-dom": ["./node_modules/preact/compat/"],
+      "react-dom/*": ["./node_modules/preact/compat/*"]
     },
     "jsx": "react-jsx",
-    "jsxImportSource": "preact",
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "nodenext"
-  }
+    "jsxImportSource": "react",
+    "skipLibCheck": true
+  },
+  "include": [".astro/types.d.ts", "src/**/*"],
+  "exclude": ["node_modules", "dist", "public"]
 }

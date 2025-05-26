@@ -41,7 +41,7 @@ const { metadata = {}, theme = {} } = Astro.props;
         document.documentElement.classList.remove('noAnimate');
       });
     </script>
-    <ClientRouter />
+    <ClientRouter fallback='swap' />
     <title>{metadata?.title || 'Tsuni!'}</title>
     <meta name="description" content={metadata?.description || "Tsuni's lovely site"} />
     <meta name="image" content={metadata?.image || 'https://tsuni.dev/images/port_website.png'} />
