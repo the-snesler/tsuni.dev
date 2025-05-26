@@ -8,18 +8,20 @@ interface Props extends WaterConfig {
 const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0.02, class: className = '', ...rest } = Astro.props;
 ---
 
-<canvas
-  id="water-canvas"
-  height={height / 4}
-  class:list={['pixelated pointer-events-none absolute top-0 right-0 w-full overflow-hidden mask-b-to-60%', className]}
-  style={{ minHeight: `${height}px` }}
-  data-height={height}
-  data-subdivisions={subdivisions}
-  data-animation-speed={animationSpeed}
-  data-wave-amplitude={waveAmplitude}
-  {...rest}></canvas>
-<div class="light-beam light-beam-alt hidden h-[600px] w-[200px] translate-x-[40vw] duration-500 md:block"></div>
-<div class="light-beam h-full w-full duration-500"></div>
+<div class="absolute top-0 right-0 left-0 h-[700px] overflow-hidden">
+  <canvas
+    id="water-canvas"
+    height={height / 4}
+    class:list={['pixelated pointer-events-none w-full overflow-hidden mask-b-to-60%', className]}
+    style={{ minHeight: `${height}px` }}
+    data-height={height}
+    data-subdivisions={subdivisions}
+    data-animation-speed={animationSpeed}
+    data-wave-amplitude={waveAmplitude}
+    {...rest}></canvas>
+  <div class="light-beam light-beam-alt hidden h-[600px] w-[200px] translate-x-[40vw] duration-500 md:block"></div>
+  <div class="light-beam h-full w-full duration-500"></div>
+</div>
 
 <style>
   #water-canvas {
@@ -49,13 +51,13 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
     mix-blend-mode: screen;
     filter: blur(16px);
     animation:
-      wiggle 6s infinite ease-in-out,
+      wiggle 6s 6s infinite ease-in-out,
       fade-down 6s ease-out;
   }
 
   .light-beam-alt {
     animation:
-      wiggle 10s infinite ease-in-out,
+      wiggle 10s 6s infinite ease-in-out,
       fade-down 6s ease-out;
   }
 
