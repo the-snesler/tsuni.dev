@@ -372,7 +372,7 @@ export default function Guestbook() {
           </div>
         </button>
       </div>
-      <div className="grid grid-cols-8 items-stretch gap-2 px-8">
+      <div className="grid grid-cols-8 items-stretch gap-2 px-1 md:px-8">
         <div className="relative" style={{ gridColumnStart: startingCol.toString() }}>
           {state === 'complete' && <div className="aspect-square w-full rounded-sm shadow-sm" />}
           {state !== 'closed' && (
@@ -397,7 +397,7 @@ export default function Guestbook() {
           )}
         </div>
         {drawingImages.map(({ id, image }, index) => (
-          <div className="bg-bkg relative aspect-square rounded-sm animate-in fade-in" style={{ animationDelay: `${index * 50}ms` }} key={id}>
+          <div className="bg-bkg animate-in fade-in relative aspect-square rounded-sm" style={{ animationDelay: `${index * 50}ms` }} key={id}>
             <img src={image} className="absolute inset-0 -z-10 w-full rounded-sm object-cover blur-xs" />
             <img src={image} alt={`Drawing ${id}`} className="pixelated h-full w-full rounded-sm object-cover" />
             {guestbookKey && state !== 'complete' && (

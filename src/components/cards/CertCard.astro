@@ -15,7 +15,7 @@ interface Props {
 const { name, certUrl, collectionUrl, src, year } = Astro.props;
 ---
 
-<HoverCard class="w-60 flex-grow xl:max-w-1/4">
+<HoverCard class="w-40 flex-grow xl:max-w-1/4">
   <div
     class="border-grey-300 hover:outlinex border-content/80 outline-accent group h-56 overflow-clip rounded-xl border-4 shadow-xl outline-4 transition-transform duration-200 focus-within:outline"
   >
@@ -34,7 +34,7 @@ const { name, certUrl, collectionUrl, src, year } = Astro.props;
         href={collectionUrl}
         class="bg-bkg/75 hover:text-accent absolute bottom-0 left-0 rounded-tr-lg px-2 text-sm text-slate-900 underline shadow-lg dark:text-white"
       >
-        Codepen collection
+        Codepen
       </a>
     )
   }

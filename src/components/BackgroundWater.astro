@@ -3,12 +3,13 @@ import type { WaterConfig } from './water/types.ts';
 
 interface Props extends WaterConfig {
   class?: string;
+  animateIn?: boolean;
 }
 
-const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0.02, class: className = '', ...rest } = Astro.props;
+const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0.02, animateIn = true, class: className = '', ...rest } = Astro.props;
 ---
 
-<div class="absolute top-0 right-0 left-0 h-[700px] overflow-hidden">
+<div class:list={['absolute top-0 right-0 left-0 h-[700px] overflow-hidden', { 'animate-in': animateIn }]}>
   <canvas
     id="water-canvas"
     height={height / 4}
@@ -24,7 +25,7 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
 </div>
 
 <style>
-  #water-canvas {
+  .animate-in #water-canvas {
     animation: fade-down-canvas 6s ease-out;
   }
 
@@ -38,7 +39,7 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
       transform: translateY(0);
     }
   }
-  .light-beam {
+  .animate-in .light-beam {
     --translate-x: -50%;
     position: absolute;
     top: 0;
@@ -55,7 +56,7 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
       fade-down 6s ease-out;
   }
 
-  .light-beam-alt {
+  .animate-in .light-beam-alt {
     animation:
       wiggle 10s 6s infinite ease-in-out,
       fade-down 6s ease-out;
@@ -85,7 +86,7 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
   }
 
   @media (max-width: 640px) {
-    .light-beam {
+    .animate-in .light-beam {
       --translate-x: 60%;
       width: 200px;
       height: 300px;
@@ -97,6 +98,7 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
   import { WaterEffect } from './water/WaterEffect.ts';
 
   let waterEffect: WaterEffect | null = null;
+  let observer: IntersectionObserver | null = null;
 
   function initWaterEffect() {
     const canvas = document.getElementById('water-canvas') as HTMLCanvasElement;
@@ -119,6 +121,22 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
 
     try {
       waterEffect = new WaterEffect(canvas, config);
+
+      // pause/resume when canvas enters/leaves viewport
+      observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (!waterEffect) return;
+            if (entry.isIntersecting) {
+              waterEffect.resume();
+            } else {
+              waterEffect.pause();
+            }
+          });
+        },
+        { threshold: 0 }
+      );
+      observer.observe(canvas);
     } catch (error) {
       console.warn('WebGL water effect failed to initialize:', error);
       // Fallback: hide canvas if WebGL fails
@@ -139,6 +157,10 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
     if (waterEffect) {
       waterEffect.destroy();
       waterEffect = null;
+    }
+    if (observer) {
+      observer.disconnect();
+      observer = null;
     }
   }
 
