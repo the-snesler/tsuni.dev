@@ -11,36 +11,82 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
 <canvas
   id="water-canvas"
   height={height / 4}
-  class:list={['pixelated pointer-events-none absolute top-0 right-0 left-0 overflow-hidden', className]}
+  class:list={['pixelated pointer-events-none absolute top-0 right-0 w-full overflow-hidden mask-b-to-60%', className]}
   style={{ minHeight: `${height}px` }}
   data-height={height}
   data-subdivisions={subdivisions}
   data-animation-speed={animationSpeed}
   data-wave-amplitude={waveAmplitude}
   {...rest}></canvas>
-<div class="light-beam hidden h-[600px] w-[200px] translate-x-[40vw] md:block"></div>
-<div class="light-beam h-full w-full"></div>
+<div class="light-beam light-beam-alt hidden h-[600px] w-[200px] translate-x-[40vw] duration-500 md:block"></div>
+<div class="light-beam h-full w-full duration-500"></div>
 
 <style>
+  #water-canvas {
+    animation: fade-down-canvas 6s ease-out;
+  }
+
+  @keyframes fade-down-canvas {
+    0% {
+      opacity: 0;
+      transform: translateY(-50%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   .light-beam {
+    --translate-x: -50%;
     position: absolute;
     top: 0;
     left: 30%;
     max-width: 300px;
     max-height: 800px;
     pointer-events: none;
-    transform: translateX(-50%) skewX(-20deg);
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 80%);
     clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
     mix-blend-mode: screen;
     filter: blur(16px);
+    animation:
+      wiggle 6s infinite ease-in-out,
+      fade-down 6s ease-out;
+  }
+
+  .light-beam-alt {
+    animation:
+      wiggle 10s infinite ease-in-out,
+      fade-down 6s ease-out;
+  }
+
+  @keyframes fade-down {
+    0% {
+      opacity: 0;
+      transform: translateX(var(--translate-x)) skewX(-20deg) rotate(0deg) translateY(-50%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(var(--translate-x)) skewX(-20deg) rotate(0deg) translateY(0);
+    }
+  }
+
+  @keyframes wiggle {
+    0% {
+      transform: translateX(var(--translate-x)) skewX(-20deg) rotate(0deg);
+    }
+    50% {
+      transform: translateX(var(--translate-x)) skewX(-15deg) rotate(2deg);
+    }
+    100% {
+      transform: translateX(var(--translate-x)) skewX(-20deg) rotate(0deg);
+    }
   }
 
   @media (max-width: 640px) {
     .light-beam {
+      --translate-x: 60%;
       width: 200px;
-      height: 600px;
-      transform: translateX(-50%) skewX(-15deg);
+      height: 300px;
     }
   }
 </style>

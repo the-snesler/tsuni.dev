@@ -90,7 +90,7 @@ export class WaterEffect {
     // Create plane geometry
     const geometry = new Plane(this.renderer.gl, {
       width: 50,
-      height: 10,
+      height: 20,
       widthSegments: this.config.subdivisions,
       heightSegments: this.config.subdivisions
     });
