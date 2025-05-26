@@ -131,9 +131,9 @@ vec3 water(vec2 uv, vec3 cdir)
     	cos(d1) * 0.15 + cos(d2) * 0.05
     );
     
-    vec3 ret = mix(uWaterCol, uWater2Col, waterlayer(uv + dist.xy - vNormal.xy * 0.5));
+    vec3 ret = mix(uWaterCol, uWater2Col, waterlayer(uv + dist.xy));
     ret = mix(ret, uFoamCol, waterlayer(vec2(1.0) - uv - dist.yx));
-    ret = mix(ret, uFoamCol, 0.3 * (1.0 - length(vNormal.x)));
+    ret = mix(ret, uFoamCol, 0.3 * (1.0 - uCameraDirection * vNormal));
     return ret;
 }
 
