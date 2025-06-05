@@ -1,6 +1,6 @@
 ---
 import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
+import Image from '@/components/Image.astro';
 
 import HoverCard from './HoverCard.astro';
 
@@ -20,7 +20,7 @@ const { name, certUrl, collectionUrl, src, year } = Astro.props;
     class="border-grey-300 hover:outlinex border-content/80 outline-accent group h-56 overflow-clip rounded-xl border-4 shadow-xl outline-4 transition-transform duration-200 focus-within:outline"
   >
     <a href={certUrl}>
-      <Image {src} alt={name} class="h-full w-full" sizes="(max-width: 600px) 100vw, (max-width 1024px) 66vw, 33vw" />
+      <Image {src} alt={name} class="h-full w-full" widths={[300, 600]} sizes="(max-width: 600px) 100vw, (max-width: 1024px) 66vw, 33vw" />
       <div class="bg-bkg/75 absolute right-0 bottom-0 rounded-tl-lg px-2 text-ellipsis whitespace-nowrap shadow-lg">
         <span class="text-sm font-bold text-slate-900 italic dark:text-white">
           {year}

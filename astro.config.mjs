@@ -40,6 +40,12 @@ export default defineConfig({
     }
   },
 
+  image: {
+    service: {
+      entrypoint: './src/utils/imageService.ts'
+    }
+  },
+
   experimental: {
     fonts: [
       {
@@ -67,5 +73,5 @@ export default defineConfig({
   },
 
   integrations: [icon(), mdx(), preact({ compat: true })],
-  adapter: cloudflare()
+  adapter: cloudflare({ imageService: 'custom' })
 });

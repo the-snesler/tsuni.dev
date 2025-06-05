@@ -1,0 +1,28 @@
+---
+import type { ImageMetadata, ImageOutputFormat } from 'astro';
+import type { HTMLAttributes } from 'astro/types';
+import { Picture as AstroPicture, getConfiguredImageService, type LocalImageProps } from 'astro:assets';
+import type { LocalImageServiceWithPlaceholder } from '@/utils/imageService';
+
+export type Props = Omit<LocalImageProps, 'src'> & {
+  src: ImageMetadata;
+  formats?: ImageOutputFormat[];
+  fallbackFormat?: ImageOutputFormat | undefined;
+  pictureAttributes?: HTMLAttributes<'picture'> | undefined;
+};
+
+const imageService = (await getConfiguredImageService()) as LocalImageServiceWithPlaceholder;
+console.log('Using image service:', imageService);
+const placeholderURL = await imageService.generatePlaceholder(Astro.props.src, Astro.props.src.width, Astro.props.src.height);
+
+const { ...props } = Astro.props as any;
+---
+
+<AstroPicture
+  {...props}
+  width={Astro.props.width ?? Astro.props.src.width / 2}
+  densities={!Astro.props.widths ? (Astro.props.densities ?? [1.5, 2]) : undefined}
+  formats={Astro.props.formats ?? ['avif', 'webp']}
+  style={`background-size: cover;background-image: url(${placeholderURL});image-rendering:auto;`}
+  onload="this.style.backgroundSize = null; this.style.backgroundImage = null; this.style.imageRendering = null; this.removeAttribute('onload');"
+/>
