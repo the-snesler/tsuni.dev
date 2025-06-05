@@ -1,7 +1,7 @@
 import { Renderer, Camera, Transform, Plane, Mesh, Program } from 'ogl';
 import type { WaterConfig, WaterUniforms } from './types.ts';
-import vertexShader from './water.vert.glsl?raw';
-import fragmentShader from './water.frag.glsl?raw';
+import vertexShader from './water.vert.glsl';
+import fragmentShader from './water.frag.glsl';
 
 const checkTheme = () => {
   const isDark = document.documentElement.classList.contains('dark');

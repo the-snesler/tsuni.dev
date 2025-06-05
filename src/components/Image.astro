@@ -12,7 +12,6 @@ export type Props = Omit<LocalImageProps, 'src'> & {
 };
 
 const imageService = (await getConfiguredImageService()) as LocalImageServiceWithPlaceholder;
-console.log('Using image service:', imageService);
 const placeholderURL = await imageService.generatePlaceholder(Astro.props.src, Astro.props.src.width, Astro.props.src.height);
 
 const { ...props } = Astro.props as any;

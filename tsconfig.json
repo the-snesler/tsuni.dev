@@ -13,7 +13,8 @@
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["vite-plugin-glsl/ext"]
   },
   "include": [".astro/types.d.ts", "src/**/*"],
   "exclude": ["node_modules", "dist", "public"]

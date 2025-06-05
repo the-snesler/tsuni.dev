@@ -3,11 +3,12 @@ import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 import preact from '@astrojs/preact';
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig, envField, fontProviders } from 'astro/config';
 import icon from 'astro-icon';
+import { defineConfig, envField, fontProviders } from 'astro/config';
 import rehypeCallouts from 'rehype-callouts';
 import remarkBreaks from 'remark-breaks';
 import remarkGFM from 'remark-gfm';
+import glsl from 'vite-plugin-glsl';
 
 import remarkSectionize from './src/utils/remark/sectionize.js';
 
@@ -25,7 +26,7 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss(), glsl({ minify: true })]
   },
 
   markdown: {
