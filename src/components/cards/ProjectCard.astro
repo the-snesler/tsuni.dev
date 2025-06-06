@@ -20,8 +20,8 @@ const { name, href, src, description, year, size = 1 } = Astro.props;
   <a {href} class="absolute inset-0">
     <Image
       {src}
-      alt={`Screenshot of ${name}`}
-      class="bg-bkg absolute h-full w-full object-cover duration-1000 group-hover:scale-105"
+      alt=""
+      class="bg-bkg absolute h-full w-full object-cover group-hover:scale-105"
       widths={[100, 300, 600]}
       sizes="(max-width: 600px) 100vw, (max-width: 1024px) 66vw, 33vw"
       quality={60}
