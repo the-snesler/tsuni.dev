@@ -2,7 +2,7 @@ import { Check, CircleX, LoaderCircle, RefreshCw, Send, Trash2 } from 'lucide-re
 import { useEffect, useReducer, useRef, useState } from 'react';
 
 import colors from '@/assets/dnot-froget.hex?raw';
-import { drawingReducer } from '@/reducers/drawing.ts';
+import { drawingReducer } from '@/components/guestbook/drawingReducer';
 
 export default function Guestbook() {
   const colorList = colors

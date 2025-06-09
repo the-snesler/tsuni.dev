@@ -1,5 +1,5 @@
 ---
-import type { WaterConfig } from './water/types.ts';
+import type { WaterConfig } from './types.js';
 
 interface Props extends WaterConfig {
   class?: string;
@@ -94,7 +94,7 @@ const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
 </style>
 
 <script>
-  import { WaterEffect } from './water/WaterEffect.ts';
+  import { WaterEffect } from './WaterEffect.ts';
 
   let waterEffect: WaterEffect | null = null;
   let observer: IntersectionObserver | null = null;

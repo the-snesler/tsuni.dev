@@ -1,5 +1,5 @@
 import { Renderer, Camera, Transform, Plane, Mesh, Program } from 'ogl';
-import type { WaterConfig, WaterUniforms } from './types.ts';
+import type { WaterConfig, WaterUniforms } from './types.js';
 import vertexShader from './water.vert.glsl';
 import fragmentShader from './water.frag.glsl';
 

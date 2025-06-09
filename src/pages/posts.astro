@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import SmallPostPreview from '@/components/SmallPostPreview.astro';
 import Layout from '@/layouts/Layout.astro';
 import textStyles from '@/styles/text.module.css';
-import BackgroundWater from '@/components/BackgroundWater.astro';
+import BackgroundWater from '@/components/water/BackgroundWater.astro';
 const posts = await getCollection('blog');
 const sortedPosts = posts.filter(p => p.data.isVisible).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
