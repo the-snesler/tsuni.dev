@@ -5,6 +5,7 @@ import { Image } from 'astro:assets';
 
 import Outline from '@/assets/logooutline.svg';
 import DarkToggle from '@/components/DarkToggle.astro';
+import Search from '@/components/Search.astro'; // Import the Search component
 
 const currentPath = Astro.url.pathname;
 
@@ -54,6 +55,9 @@ const links = [
         }
       </ul>
     </nav>
+    <div class="search-header-container ml-2"> {/* Container for Search */}
+      <Search />
+    </div>
     <DarkToggle />
   </div>
 </header>
@@ -108,5 +112,39 @@ const links = [
       background: hsl(var(--color-bkg) / 100);
       backdrop-filter: blur(12px);
     }
+  }
+  .search-header-container {
+    /* Basic styling to make it fit in the header */
+    display: flex;
+    align-items: center;
+  }
+
+  /* Adjust Search.astro's internal styling if needed via more specific selectors,
+     or by making Search.astro's styles more flexible.
+     For now, let's assume Search.astro's styles are mostly self-contained.
+     We might need to adjust its width or margins.
+  */
+  .search-header-container > :global(.search-container) {
+    margin: 0; /* Remove default margins from Search.astro if they exist */
+  }
+  .search-header-container > :global(.search-container input#searchInput) {
+    padding: 6px 10px; /* Smaller padding for header */
+    font-size: 0.9rem;
+    max-width: 200px; /* Or use a responsive width */
+    height: 36px; /* Match nav link height roughly */
+  }
+  .search-header-container > :global(.search-container ul#searchResults) {
+    position: absolute;
+    top: 100%; /* Position below the search input */
+    right: 0; /* Align to the right or make it full width */
+    background-color: hsl(var(--color-bkg) / 0.95); /* Background for results dropdown */
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    width: 300px; /* Example width */
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 100; /* Ensure it's above other content */
   }
 </style>

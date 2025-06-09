@@ -30,8 +30,10 @@
     "@types/unist": "^3.0.3",
     "astro": "^5.8.0",
     "astro-icon": "^1.1.5",
+    "fuse.js": "^7.0.0",
     "giscus": "^1.6.0",
     "github-slugger": "^2.0.0",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.511.0",
     "mdast-util-to-string": "^4.0.0",
     "ogl": "^1.0.11",
@@ -39,6 +41,7 @@
     "react": "npm:@preact/compat@^18.3.1",
     "react-dom": "npm:@preact/compat@^18.3.1",
     "rehype-callouts": "^2.1.0",
+    "remark": "^15.0.1",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
     "sharp": "^0.34.2",
@@ -67,6 +70,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript-eslint": "^8.32.0",
     "vitest": "^3.1.4",
+    "jsdom": "^24.1.1",
     "wrangler": "^4.16.1"
   },
   "alias": {

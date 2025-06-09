@@ -5,6 +5,7 @@ import SmallPostPreview from '@/components/SmallPostPreview.astro';
 import Layout from '@/layouts/Layout.astro';
 import textStyles from '@/styles/text.module.css';
 import BackgroundWater from '@/components/BackgroundWater.astro';
+import Search from '@/components/Search.astro'; // Import the Search component
 const posts = await getCollection('blog');
 const sortedPosts = posts.filter(p => p.data.isVisible).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
@@ -12,6 +13,9 @@ const sortedPosts = posts.filter(p => p.data.isVisible).sort((a, b) => b.data.da
 <Layout metadata={{ title: 'Blog', description: "Tsuni's blog" }}>
   <BackgroundWater animateIn={false} />
   <main class="min-h-screen pt-16 pb-8">
+    <section class="container mx-auto mb-8"> {/* Added a container for search */}
+      <Search /> {/* Add the Search component here */}
+    </section>
     <section id="posts" class="container mx-auto flex flex-col items-center justify-center">
       <h2 class={`text-3xl md:text-4xl leading-normal font-semibold text-content ${textStyles.terminal} font-mono`}>ls posts</h2>
       <div class="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">

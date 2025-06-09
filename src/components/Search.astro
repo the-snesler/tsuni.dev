@@ -1,0 +1,150 @@
+---
+// No server-side JavaScript needed for this component yet.
+// Fuse.js initialization and search will be client-side.
+---
+
+<div class="search-container">
+  <input type="search" id="searchInput" placeholder="Search posts..." aria-label="Search posts" />
+  <ul id="searchResults">
+    <!-- Search results will be populated here by client-side JavaScript -->
+  </ul>
+</div>
+
+<style>
+  .search-container {
+    margin: 20px 0;
+    font-family: sans-serif;
+  }
+  #searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  #searchResults {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  #searchResults li {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+  }
+  #searchResults li:last-child {
+    border-bottom: none;
+  }
+  #searchResults li a {
+    text-decoration: none;
+    color: #333;
+  }
+  #searchResults li a:hover {
+    color: #007bff;
+  }
+</style>
+
+<script>
+  import Fuse from 'fuse.js';
+
+  let fuseInstance = null; // Will hold the Fuse instance
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  function displayResults(results) {
+    searchResults.innerHTML = ''; // Clear previous results
+
+    if (results.length === 0) {
+      if (searchInput.value.trim() !== '') { // Only show "No results" if query is not empty
+        const li = document.createElement('li');
+        li.textContent = 'No results found.';
+        searchResults.appendChild(li);
+      }
+      return;
+    }
+
+    results.forEach(result => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = result.item.url;
+      a.textContent = result.item.title;
+      // Optionally, display subtitle or excerpt
+      // const subtitle = document.createElement('p');
+      // subtitle.textContent = result.item.subtitle || result.item.excerpt.slice(0,100);
+      // subtitle.style.fontSize = '0.9em';
+      // subtitle.style.color = '#555';
+      li.appendChild(a);
+      // li.appendChild(subtitle);
+      searchResults.appendChild(li);
+    });
+  }
+
+  async function initializeSearch() {
+    console.log('Initializing search...');
+    try {
+      const response = await fetch('/searchIndex.json');
+      if (!response.ok) {
+        console.error('Failed to fetch search index:', response.status, response.statusText);
+        return;
+      }
+      const searchData = await response.json();
+
+      if (!searchData.documents || !searchData.index) {
+        console.error('Search index data is not in the expected format:', searchData);
+        return;
+      }
+
+      console.log('Search data fetched:', searchData);
+
+      // Rehydrate the Fuse index
+      // The first argument is the list of documents.
+      // The second argument is the options object (must be the same as when the index was created).
+      // The third argument is the pre-generated index.
+      const fuseOptions = {
+        keys: ['title', 'subtitle', 'excerpt', 'content'],
+        includeScore: true,
+        threshold: 0.4,
+        ignoreLocation: true,
+      };
+
+      // Fuse.parseIndex is used to rehydrate the index
+      const parsedIndex = Fuse.parseIndex(searchData.index);
+
+      // Assign to the outer scope variable
+      fuseInstance = new Fuse(searchData.documents, fuseOptions, parsedIndex);
+
+      console.log('Fuse.js instance initialized:', fuseInstance);
+
+      // Add event listener to search input
+      searchInput.addEventListener('input', (event) => {
+        if (!fuseInstance) {
+          console.warn('Fuse instance not yet initialized.');
+          return;
+        }
+        const query = event.target.value.trim();
+        if (query === '') {
+          searchResults.innerHTML = ''; // Clear results if query is empty
+          return;
+        }
+        const results = fuseInstance.search(query);
+        displayResults(results);
+      });
+
+    } catch (error) {
+      console.error('Error initializing search:', error);
+      if (searchResults) {
+        searchResults.innerHTML = '<li>Error loading search. Please try again later.</li>';
+      }
+    }
+  }
+
+
+  // Ensure DOM is ready before trying to initialize search
+  // and access DOM elements.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeSearch);
+  } else {
+    // DOMContentLoaded has already fired
+    initializeSearch();
+  }
+</script>
