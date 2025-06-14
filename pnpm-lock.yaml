@@ -72,8 +72,8 @@ importers:
         specifier: npm:@preact/compat@^18.3.1
         version: '@preact/compat@18.3.1(preact@10.26.6)'
       rehype-callouts:
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: 2.0.2
+        version: 2.0.2
       remark-breaks:
         specifier: ^4.0.0
         version: 4.0.0
@@ -147,6 +147,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.6.11
         version: 0.6.11(prettier-plugin-astro@0.14.1)(prettier@3.5.3)
+      rehype:
+        specifier: ^13.0.2
+        version: 13.0.2
       typescript-eslint:
         specifier: ^8.32.0
         version: 8.32.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
@@ -3812,8 +3815,8 @@ packages:
     resolution: {integrity: sha512-dYqgNSZbDwkaJ2ceRd9ojCGjBq+mOm9LmtXnAnEGyHhN/5R7iDW2TRw3h+o/jCFxus3P2LfWIIiwowAjANm7IA==}
     engines: {node: '>= 0.4'}
 
-  rehype-callouts@2.1.0:
-    resolution: {integrity: sha512-Als/wlYpXg2Rs0p/yofrkSH6IQzn1xh6cvBC5BHy5JVT3lGlzUvVT8wOyVqCEgf8Eun6cQ3f47rLLoaiyLkP0w==}
+  rehype-callouts@2.0.2:
+    resolution: {integrity: sha512-061DZSite9fR2qhNlVNicLS6Z9y4USLZ+EGvT9gn/yuN/LTjGBh8ZQPjb4TRIpzVwBJRFkKQV4ouUn5473FCTw==}
     engines: {node: ^18.0.0 || >=20.0.0}
 
   rehype-parse@8.0.5:
@@ -9256,7 +9259,7 @@ snapshots:
       gopd: 1.2.0
       set-function-name: 2.0.2
 
-  rehype-callouts@2.1.0:
+  rehype-callouts@2.0.2:
     dependencies:
       '@types/hast': 3.0.4
       hast-util-from-html: 2.0.3
