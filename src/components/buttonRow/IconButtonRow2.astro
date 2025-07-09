@@ -38,7 +38,7 @@ const getAnimationDelayStyle = (index: number, baseDelay: number) => {
   {
     buttons.map((button: ButtonProps, index: number) => (
       <li class="relative text-center">
-        <a href={button.href} class="icon-row-link px-3 py-2 motion-safe:opacity-0" style={getAnimationDelayStyle(index, animateDelay)}>
+        <a href={button.href} class="icon-row-link px-3 py-2 motion-safe:opacity-0 fill-mode-forwards" style={getAnimationDelayStyle(index, animateDelay)}>
           <Icon name={button.iconName} size={24} />
           <p class="visible-hidden">{button.title}</p>
         </a>

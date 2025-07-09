@@ -27,6 +27,8 @@ export default function Guestbook() {
   // Guestbook images state
   const [drawingImages, setDrawingImages] = useState<{ id: string; image: string }[]>([]);
   const [guestbookKey, setGuestbookKey] = useState<string | null>(null);
+  const [blockIPOnDelete, setBlockIPOnDelete] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
   // Computed states
   const state = drawingState.state;
   const didSubmissionError = drawingState.error;
@@ -269,11 +271,14 @@ export default function Guestbook() {
         method: 'DELETE',
         headers: {
           'secret-key': guestbookKey,
-          'drawing-index': originalIndex.toString()
+          'drawing-index': originalIndex.toString(),
+          'block-ip': blockIPOnDelete.toString()
         }
       });
 
       if (response.ok) {
+        const responseText = await response.text();
+        setMessage(`Delete: ${responseText}`);
         fetchDrawings();
       } else {
         console.error('Error deleting drawing:', await response.text());
@@ -372,8 +377,22 @@ export default function Guestbook() {
           </div>
         </button>
       </div>
-      <div className="grid grid-cols-8 items-stretch gap-2 px-1 md:px-8">
-        <div className="relative" style={{ gridColumnStart: startingCol.toString() }}>
+      {guestbookKey && (
+        <div className="mx-auto mt-4 flex items-center gap-2">
+          <label className="flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              checked={blockIPOnDelete}
+              onChange={(e: Event) => setBlockIPOnDelete((e.target as HTMLInputElement).checked)}
+              className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+            />
+            <span className="text-sm text-gray-700 dark:text-gray-300">Block IP when deleting drawings</span>
+          </label>
+        </div>
+      )}
+      {message && <p>{message}</p>}
+      <div className="grid grid-cols-4 items-stretch gap-2 px-1 sm:grid-cols-8 md:px-8">
+        <div className="relative sm:col-start-[var(--col-start)]" style={{ '--col-start': startingCol.toString() }}>
           {state === 'complete' && <div className="aspect-square w-full rounded-sm shadow-sm" />}
           {state !== 'closed' && (
             <canvas

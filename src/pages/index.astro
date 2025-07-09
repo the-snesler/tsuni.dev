@@ -57,7 +57,8 @@ import textStyles from '@/styles/text.module.css';
       <section id="guestbook">
         <h2 class={`text-3xl md:text-4xl font-semibold mb-4 text-center font-mono ${textStyles.terminal}`}>./guestbook</h2>
         <p class="text-center text-lg">
-          {`Leave a drawing in my guestbook! User-generated content below!`}
+          <span class="inline-block">Leave a drawing in my guestbook!</span>
+          <span class="inline-block">Please don't draw anything I'll have to delete.</span>
         </p>
         <Guestbook client:visible>
           <div slot="fallback">Loading~!</div>

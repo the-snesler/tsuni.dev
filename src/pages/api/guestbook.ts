@@ -2,9 +2,101 @@ import type { APIRoute } from 'astro';
 import { GUESTBOOK_SECRET_KEY, GUESTBOOK_WEBHOOK } from 'astro:env/server';
 
 const DRAWINGS_KEY = 'drawings.bin';
+const BLOCKED_IPS_KEY = 'blocked-ips.json';
+const DRAWING_METADATA_KEY = 'drawing-metadata.json';
 const delimiter = new Uint8Array([255]);
 
 export const prerender = false;
+
+interface DrawingMetadata {
+  id?: string;
+  ip?: string;
+  timestamp?: number;
+}
+
+const getClientIP = (request: Request): string | undefined => {
+  // Try Cloudflare's CF-Connecting-IP header first
+  const cfIP = request.headers.get('CF-Connecting-IP');
+  if (cfIP) return cfIP;
+
+  // Fallback to X-Forwarded-For
+  const xForwardedFor = request.headers.get('X-Forwarded-For');
+  if (xForwardedFor) {
+    return xForwardedFor.split(',')[0].trim();
+  }
+
+  // Fallback to X-Real-IP
+  const xRealIP = request.headers.get('X-Real-IP');
+  if (xRealIP) return xRealIP;
+
+  // Last resort fallback
+  return undefined;
+};
+
+const getBlockedIPs = async (env: any): Promise<Set<string>> => {
+  try {
+    const obj = await env.DRAWINGS.get(BLOCKED_IPS_KEY);
+    if (!obj) return new Set();
+    const blockedList = JSON.parse(await obj.text());
+    return new Set(blockedList);
+  } catch (e) {
+    console.error('Error loading blocked IPs:', e);
+    return new Set();
+  }
+};
+
+const saveBlockedIPs = async (env: any, blockedIPs: Set<string>): Promise<void> => {
+  try {
+    const blockedList = Array.from(blockedIPs);
+    await env.DRAWINGS.put(BLOCKED_IPS_KEY, JSON.stringify(blockedList));
+  } catch (e) {
+    console.error('Error saving blocked IPs:', e);
+  }
+};
+
+const getDrawingMetadata = async (env: any): Promise<DrawingMetadata[]> => {
+  try {
+    const obj = await env.DRAWINGS.get(DRAWING_METADATA_KEY);
+    if (!obj) return [];
+    return JSON.parse(await obj.text());
+  } catch (e) {
+    console.error('Error loading drawing metadata:', e);
+    return [];
+  }
+};
+
+const backfillMetadata = async (env: any, drawingCount: number): Promise<DrawingMetadata[]> => {
+  const metadata = await getDrawingMetadata(env);
+
+  // If metadata is empty or has fewer entries than drawings, backfill
+  if (metadata.length < drawingCount) {
+    const missingCount = drawingCount - metadata.length;
+    const backfillEntries: DrawingMetadata[] = [];
+
+    for (let i = 0; i < missingCount; i++) {
+      backfillEntries.push({
+        id: undefined,
+        ip: undefined,
+        timestamp: undefined
+      });
+    }
+
+    // Add backfill entries at the beginning to match existing drawing indices
+    const updatedMetadata = [...backfillEntries, ...metadata];
+    await saveDrawingMetadata(env, updatedMetadata);
+    return updatedMetadata;
+  }
+
+  return metadata;
+};
+
+const saveDrawingMetadata = async (env: any, metadata: DrawingMetadata[]): Promise<void> => {
+  try {
+    await env.DRAWINGS.put(DRAWING_METADATA_KEY, JSON.stringify(metadata));
+  } catch (e) {
+    console.error('Error saving drawing metadata:', e);
+  }
+};
 
 const parseDrawings = (fileContent: Uint8Array): Uint8Array[] => {
   const drawingsData: Uint8Array[] = [];
@@ -59,19 +151,41 @@ export const GET: APIRoute = async ({ locals }) => {
 
 export const POST: APIRoute = async ({ locals, request }) => {
   try {
+    const clientIP = getClientIP(request);
+
+    // Check if IP is blocked
+    const blockedIPs = await getBlockedIPs(locals.runtime.env);
+    if (blockedIPs.has(clientIP || "---")) {
+      return new Response('Unable to process request at this time', { status: 503 });
+    }
+
     const buffer = new Uint8Array(await request.arrayBuffer());
     const existing = await locals.runtime.env.DRAWINGS.get(DRAWINGS_KEY);
     const existingBuffer = existing ? new Uint8Array(await existing.arrayBuffer()) : new Uint8Array(0);
     const drawingsData = parseDrawings(existingBuffer);
+
+    // Add the new drawing
     drawingsData.push(buffer);
     const newBuffer = serializeDrawings(drawingsData);
     await locals.runtime.env.DRAWINGS.put(DRAWINGS_KEY, newBuffer);
+
+    // Store drawing metadata with IP
+    const metadata = await backfillMetadata(locals.runtime.env, drawingsData.length - 1);
+    const drawingId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    metadata.push({
+      id: drawingId,
+      ip: clientIP,
+      timestamp: Date.now()
+    });
+    await saveDrawingMetadata(locals.runtime.env, metadata);
+
     // Send notification to Discord webhook
     await fetch(GUESTBOOK_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: 'A new drawing has been posted.' })
+      body: JSON.stringify({ content: `A new drawing has been posted from IP: ${clientIP}` })
     });
+
     return new Response('Drawing received', { status: 200 });
   } catch (e) {
     console.error('Error saving drawing:', e);
@@ -82,7 +196,9 @@ export const POST: APIRoute = async ({ locals, request }) => {
 export const DELETE: APIRoute = async ({ locals, request }) => {
   const clientKey = request.headers.get('secret-key');
   const indexHeader = request.headers.get('drawing-index');
+  const blockIPHeader = request.headers.get('block-ip');
   const drawingIndexToDelete = indexHeader ? parseInt(indexHeader, 10) : NaN;
+  const shouldBlockIP = blockIPHeader === 'true';
 
   if (!clientKey || isNaN(drawingIndexToDelete) || drawingIndexToDelete < 0) {
     return new Response('Missing or invalid secret key or drawing index.', { status: 400 });
@@ -105,9 +221,48 @@ export const DELETE: APIRoute = async ({ locals, request }) => {
     if (drawingIndexToDelete >= drawingsData.length) {
       return new Response('Drawing index out of bounds.', { status: 400 });
     }
+
+    // Get drawing metadata to find the IP address
+    const metadata = await backfillMetadata(locals.runtime.env, drawingsData.length);
+    let ipToBlock = null;
+    if (shouldBlockIP && metadata[drawingIndexToDelete] && metadata[drawingIndexToDelete].ip) {
+      ipToBlock = metadata[drawingIndexToDelete].ip;
+    }
+
+    // Remove the drawing
     drawingsData.splice(drawingIndexToDelete, 1);
     const newBuffer = serializeDrawings(drawingsData);
     await locals.runtime.env.DRAWINGS.put(DRAWINGS_KEY, newBuffer);
+
+    // Remove corresponding metadata
+    metadata.splice(drawingIndexToDelete, 1);
+    await saveDrawingMetadata(locals.runtime.env, metadata);
+
+    // Block the IP if requested
+    if (shouldBlockIP && ipToBlock) {
+      const blockedIPs = await getBlockedIPs(locals.runtime.env);
+      blockedIPs.add(ipToBlock);
+      await saveBlockedIPs(locals.runtime.env, blockedIPs);
+
+      // Send notification about the blocked IP
+      await fetch(GUESTBOOK_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: `Drawing deleted and IP blocked: ${ipToBlock}` })
+      });
+
+      return new Response(`Drawing deleted successfully and IP ${ipToBlock} has been blocked.`, { status: 200 });
+    } else if (shouldBlockIP && !ipToBlock) {
+      // Send notification that IP couldn't be blocked (legacy drawing)
+      await fetch(GUESTBOOK_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: `Drawing deleted but IP could not be blocked (legacy drawing without IP metadata)` })
+      });
+
+      return new Response('Drawing deleted successfully, but IP could not be blocked (legacy drawing).', { status: 200 });
+    }
+
     return new Response('Drawing deleted successfully.', { status: 200 });
   } catch (e) {
     console.error('Error deleting drawing:', e);
