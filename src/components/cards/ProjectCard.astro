@@ -11,12 +11,15 @@ interface Props {
   description: string;
   year: string;
   size?: 1 | 2 | 3;
+  hideMobile?: boolean;
 }
 
-const { name, href, src, description, year, size = 1 } = Astro.props;
+const { name, href, src, description, year, size = 1, hideMobile = false } = Astro.props;
 ---
 
-<HoverCard class={(size === 1 ? 'w-48' : size === 2 ? 'w-64' : 'w-80') + ' min-w-1/5 flex-grow-[2] xl:max-w-1/2'}>
+<HoverCard
+  class:list={[{ 'w-48': size === 1, 'w-64': size === 2, 'w-80': size === 3, 'hidden sm:block': hideMobile }, 'min-w-1/5 flex-grow-[2] xl:max-w-1/2']}
+>
   <a {href} class="absolute inset-0">
     <Image
       {src}

@@ -9,65 +9,83 @@ Here's a list of the tools, software and many other things that I use on a daily
 
 ## Browser
 
-Firefox, naturally. I really like the ability to customize the interface using CSS, and it had a sidebar before it was cool.
-![](/images/uses/firefox.jpg)
+It used to be [Firefox](https://www.firefox.com/en-US/) with lots of extensions to make it look and feel like [Arc](https://arc.net/), but then [Zen](https://zen-browser.app/) came out and I switched to it. 
+
+Zen is an open-source Firefox fork with many of the same UI features as Arc, and it's still receiving support (unlike Arc, RIP). It also works better on my Windows desktop and laptop than Arc did.
 
 ## Extensions
 
-- [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/) - Ad blocker
-- [Sidebery](https://addons.mozilla.org/en-US/firefox/addon/sidebery/) - Heavily customizable tree-style tabs
-- [Bitwarden](https://addons.mozilla.org/en-US/firefox/addon/bitwarden-password-manager/) - Excellent password manager
-- [Imagus Mod](https://addons.mozilla.org/en-US/firefox/addon/imagus-mod/) - Image hover zoom
-- [Dark Reader](https://addons.mozilla.org/en-US/firefox/addon/darkreader/) - Auto dark mode for every website (great on my OLED laptop)
 - [Augmented Steam](https://addons.mozilla.org/en-US/firefox/addon/augmented-steam/) - Enhances Steam with additional information
+- [Bitwarden](https://addons.mozilla.org/en-US/firefox/addon/bitwarden-password-manager/) - Excellent password manager
+- [Dark Reader](https://addons.mozilla.org/en-US/firefox/addon/darkreader/) - Auto dark mode for every website (helpful for battery life on my OLED laptop)
+- [Imagus Mod](https://addons.mozilla.org/en-US/firefox/addon/imagus-mod/) - Image hover zoom (useful for Reddit)
+- [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/) - One ad blocker to rule them all
 
 ## Websites
 
-- [Wormhole](https://wormhole.app/) - A dead simple, super fast way to send huge files between devices. Great for sharing things with friends.
-- [Pocket Casts](https://www.pocketcasts.com/) - My podcast app of choice (partially because I bought the web app before they went a subscription model)
-- [MyNoise](https://mynoise.net/) - A fantastic noise generator that I use for focus and relaxation
-- [LofiMusic](https://github.com/maxence-charriere/lofimusic) - A music player PWA for YouTube livestreams that I use for focus
+- [Cobalt](https://cobalt.tools/) - YouTube video downloader that I don't personally use but would be remiss not to mention (see Vividl below!)
 - [CyberChef](https://gchq.github.io/CyberChef/) - A web app for encoding, decoding, and analyzing text data in a variety of formats
 - [DevDocs](https://devdocs.io/) - A frontend for various language/library documentation sites with quick search.
-- [Cobalt](https://cobalt.tools/) - YouTube video downloader that I don't personally use but would be remiss not to mention (see Vividl below!)
-- [IsThereAnyDeal](https://isthereanydeal.com/) - Great for tracking game prices and bundles, with an excellent waitlist feature
 - [Hoppscotch](https://hoppscotch.io/) - A Postman alternative PWA, great for quick API testing
+- [IsThereAnyDeal](https://isthereanydeal.com/) - Great for tracking game prices and bundles, with an excellent waitlist feature
+- [LofiMusic](https://github.com/maxence-charriere/lofimusic) - A music player PWA for lo-fi music YouTube livestreams
+- [MyNoise](https://mynoise.net/) - A fantastic noise generator that I use for focus and relaxation
+- [Pocket Casts](https://www.pocketcasts.com/) - My podcast app of choice (partially because I bought the web app before they went a subscription model)
 - [Winstall](https://winstall.app/) - A WinGet command generator that makes it easy to install a bunch of apps at once, like Ninite on steroids
+- [Wormhole](https://wormhole.app/) - A dead simple, super fast way to send \<10gb files between devices. Great for sharing things with friends, and it's been around for a while so I'm confident it won't disappear.
 
-# Desktop apps
+# Windows
 
 I have a desktop and laptop that I love dearly.
 
 import Card from '@/components/cards/Card.astro';
 
 <div class="grid gap-4 md:grid-cols-2">
-  <Card>**Desktop** OS: Windows 11 CPU: Intel Core i5-10600KF GPU: Nvidia RTX 4060 Ti 16gb 32gb RAM; 512gb SSD; 6tb HDD</Card>
-  <Card>**Laptop** OS: Windows 11 Model: ASUS Zenbook CPU: AMD Ryzen 7-7730U 16gb RAM; 512gb SSD</Card>
+  <Card>**Desktop** 
+  OS: Windows 11 
+  CPU: Intel Core i5-10600KF 
+  GPU: Nvidia RTX 4060 Ti 16gb</Card>
+  <Card>**Laptop** 
+  OS: Windows 11 
+  Model: ASUS Zenbook 
+  CPU: AMD Ryzen 7-7730U</Card>
 </div>
 
-- [Notion](https://www.notion.so/) - Notion is great for organizing tasks in just the right way for me, and it can hold notes and my game backlog too.
-- [Notion Calendar](https://calendar.notion.so) - I use this to keep track of my class schedule and deadlines.
-- [Spark](https://sparkmailapp.com/) - As far as I know, Spark is the only nice-looking native Windows mail app with categories.
-- [Yasb](https://github.com/amnweb/yasb) - A highly configurable Windows status bar written in Python.
-- [Microsoft Powertoys](https://github.com/microsoft/PowerToys) - A collection of utilities you'd be be a tool to miss. Run and Color Picker are my favorites!
+## Windows Apps
+
+- [Affinity Suite](https://affinity.serif.com/en-us/) - Sometimes I want to do some vector graphics work or image editing, but I can't justify an Adobe subscription and I'm not going to admit to pirating it. Affinity is a great alternative! I've been with them for years now, since I initially bought Affinity Designer on sale for $25 (I was previously making YouTube thumbnails in Apple Keynote, of all things)
+- [Microsoft Powertoys](https://github.com/microsoft/PowerToys) - A collection of utilities you'd be be a tool to miss.
+- [Notion Calendar](https://calendar.notion.so) - Just a nice calendar app. Since the rebrand, it can also pull in assignments from my Notion database and display them on my calendar too.
+- [Notion](https://www.notion.so/) - Notion is great for organizing tasks in just the right way for me, and it can hold notes and my game backlog too. It has a decent enough API, so when combined with a self-hosted [n8n](https://n8n.io/) instance, I can freely write my own little extensions to sync Canvas assignments, Todoist tasks, and game backlog data from outside sources. In theory, I could do much of the same things with Obsidian too, but the ease of syncing, sharing, and extending with Notion win out.
+- [PlayNite](https://playnite.link/) - If you're anything like me, you've been accumulating free games for years from [Amazon Prime](https://gaming.amazon.com/), [Epic Games](https://www.epicgames.com/store/en-US/free-games), and other sources. Combine that with a habit of "buying games wherever they're cheapest" and owning console games, and you end up with a mess of launchers and libraries. PlayNite is a free, open-source app that lets you manage all your games in one place, no matter where they came from. It also has a great plugin system that lets you add features like game tracking, achievements, and more. I find it more robust and extensible than [GOG Galaxy](https://www.gog.com/galaxy), though that's a great option too.
+- [Raycast](https://raycast.com/) - My launcher of choice, recently in beta for Windows. I loved it back on my Mac, and I feel it beats PowerToys Run and even the new Windows Command Palette in terms of speed and stability. It already has a great library of extensions, and I'm excited for future development!
 - [ShareX](https://getsharex.com/) - Screenshotting and screen recording app.
-- [Vividl](https://sourceforge.net/projects/vividl/) - Great free YouTube video downloader. Functionally a frontend for yt-dlp so it doesn't usually break.
+- [Spark](https://sparkmailapp.com/) - As far as I know, Spark is the only 1) nice-looking 2) native Windows mail app that is 3) free and has 4) automatic categories.
+- [Vividl](https://sourceforge.net/projects/vividl/) - Great free YouTube video downloader. Functionally a frontend for yt-dlp, so it doesn't  *usually* break.
+- [Yasb](https://github.com/amnweb/yasb) - A highly configurable Windows status bar written in Python. Between this, Raycast, and Zen, I wonder if I should just go back to MacOS?
 
 # Homelab
 
-This is how I got into programming in the first place. There's no magic quite like wiring up 6 Docker containers on a $150 Windows box and getting a website out of it, and I've continued that for about 6 years to my still-modest current setup.
+This is how I got into programming in the first place. There's no magic quite like wiring up 6 Docker containers on a $150 Windows box and getting a website out of it, and I've continued that for about 8 years to my still-modest current setup.
 
-<Card>**Inkstation** OS: OpenMediaVault CPU: Intel i5-2500S Uptime: too long 16gb RAM; 256gb SSD; 8tb HDD</Card>A homelab is nothing without apps.
+<Card>**Inkstation** 
+OS: OpenMediaVault 
+CPU: Intel i5-2500S 
+Uptime: too long</Card>
 
-These ones are my favorites, either because they're the best of the alternatives I tried or they're just really cool: 
+## Homelab Services
+A homelab is nothing without something for it to host. These ones are my favorites, either because they're the best of the alternatives I tried or they're just really cool: 
+
 - [Authelia](https://www.authelia.com/) - No-nonsense auth provider that makes securing other apps straightforward.
-- [Bluemap](https://bluemap.bluecolored.de/) - Serves 3D maps of Minecraft worlds over the web. Check out [mcarchive.tsuni.dev](https://mcarchive.tsuni.dev)!
-- [Caddy-Docker-Proxy](https://github.com/lucaslorentz/caddy-docker-proxy) - Wonderful Caddy extension that makes deploying new containers to a subdomain as [easy as 2 labels on a container](https://gist.github.com/TetraTsunami/11dcda9bbbccb56416f773ddda376b99).
-- [Calibre-web](https://github.com/janeczku/calibre-web) - Drop-in replacement for my Kobo e-reader's sync server, allowing me to get books to it from anywhere. - [Croc](https://schollz.com/tinker/croc/) - Super simple CLI file transfer tool that works over the internet. Not used often but handy for VPSes, school computers, and other quick-and-dirty transfers.
-- [Foundry](https://foundryvtt.com/) - Excellent web-based VTT for tabletop roleplaying games
-- [n8n](https://n8n.io/) - Node-based automation platform. Syncs my Canvas assignments to Notion, grabs data for my game backlog, and a whole host of other small things.
+- [Authentik](https://goauthentik.io/) - ...that said, Authentik is harder to set up but way more flexible.
+- [Bluemap](https://bluemap.bluecolored.de/) - Serves 3D maps of Minecraft worlds over the web. Check out [past worlds](https://mcarchive.tsuni.dev) and [maybe even my current server](https://mc.tsuni.dev).  
+- [Caddy](https://caddyserver.com/) - A reverse proxy that's much simpler to set up than nginx or Traefik.
+- [Caddy-Docker-Proxy](https://github.com/lucaslorentz/caddy-docker-proxy) - Wonderful Caddy extension that makes deploying new containers to a subdomain as [easy as 2 labels on a container](https://gist.github.com/the-snesler/11dcda9bbbccb56416f773ddda376b99).
+- [Calibre-web](https://github.com/janeczku/calibre-web) - Drop-in replacement for my Kobo e-reader's sync server, allowing me to get books to it from anywhere.
+- [Croc](https://schollz.com/tinker/croc/) - Super simple CLI file transfer tool that handles discovery for you. Nice for university computers.
+- [n8n](https://n8n.io/) - Node-based automation platform. All the little things that Zapier would be helpful for, but free.
 - [Plausible](https://plausible.io/) - Analytics that are super easy to just slot into any project
-- [Plex](https://www.plex.tv/) - Media server extaordinaire. Music support is much better than Jellyfin's equivalent.
-- [Pterodactyl](https://pterodactyl.io/) - Host and manage many game servers. Much less management work than running them bare.
-- [Seafile](https://www.seafile.com/en/home/) - File storage with rock-solid sync and direct-download share links
-- [Tailscale](https://tailscale.com/) - Allows me to access this server and my 3 VPSes without exposing them to the web. Taildrop allows me to quickly & wirelessly transfer files between iOS and Windows without being able to communicate directly over the same network (important at university!)
+- [Plex](https://www.plex.tv/) - Media server extraordinaire. Music support is better than Jellyfin's equivalent, imo.
+- [Pterodactyl](https://pterodactyl.io/) - Host and manage many game servers, with less management work than running them bare.
+- [Seafile](https://www.seafile.com/en/home/) - File storage with rock-solid sync, and direct-download share links
+- [Tailscale](https://tailscale.com/) - Allows me to access this server and my 3 VPSes without exposing them to the web. Taildrop is great for iOS and Windows file transfer, especially when the network doesn't allow LAN devices to talk to each other.
