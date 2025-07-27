@@ -69,7 +69,7 @@ export class WaterEffect {
 
     this.scene = new Transform();
     this.uniforms = {
-      uTime: { value: 0 },
+      uTime: { value: Math.round(Math.random() * 10000) },
       uWaveAmplitude: { value: this.config.waveAmplitude },
       uAnimationSpeed: { value: this.config.animationSpeed },
       uResolution: { value: [canvas.width, canvas.height] },

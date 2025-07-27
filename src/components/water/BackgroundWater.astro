@@ -6,89 +6,36 @@ interface Props extends WaterConfig {
   animateIn?: boolean;
 }
 
-const { height = 300, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0.02, animateIn = true, class: className = '', ...rest } = Astro.props;
+const { height = 400, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0.02, animateIn = true, class: className = '', ...rest } = Astro.props;
 ---
 
 <div class:list={['absolute top-0 right-0 left-0 h-[700px] overflow-hidden', { 'animate-in': animateIn }]}>
   <canvas
     id="water-canvas"
     height={height / 4}
-    class:list={['pixelated pointer-events-none w-full overflow-hidden mask-b-to-60%', className]}
+    class:list={['pixelated pointer-events-none w-full overflow-hidden mask-b-to-80%', className]}
     style={{ minHeight: `${height}px` }}
     data-height={height}
     data-subdivisions={subdivisions}
     data-animation-speed={animationSpeed}
     data-wave-amplitude={waveAmplitude}
     {...rest}></canvas>
-  <div class="light-beam light-beam-alt hidden h-[600px] w-[200px] translate-x-[40vw] duration-500 md:block"></div>
-  <div class="light-beam h-full w-full duration-500"></div>
 </div>
 
 <style>
   .animate-in #water-canvas {
-    animation: fade-down-canvas 6s ease-out;
+    animation: fade-down-canvas 3s 1s ease-out;
+    animation-fill-mode: backwards;
   }
 
   @keyframes fade-down-canvas {
     0% {
       opacity: 0;
-      transform: translateY(-50%);
+      transform: translateY(-10%);
     }
     100% {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-  .animate-in .light-beam {
-    --translate-x: -50%;
-    position: absolute;
-    top: 0;
-    left: 30%;
-    max-width: 300px;
-    max-height: 800px;
-    pointer-events: none;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 80%);
-    clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
-    mix-blend-mode: screen;
-    animation:
-      wiggle 6s 6s infinite ease-in-out,
-      fade-down 6s ease-out;
-  }
-
-  .animate-in .light-beam-alt {
-    animation:
-      wiggle 10s 6s infinite ease-in-out,
-      fade-down 6s ease-out;
-  }
-
-  @keyframes fade-down {
-    0% {
-      opacity: 0;
-      transform: translateX(var(--translate-x)) skewX(-20deg) rotate(0deg) translateY(-50%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(var(--translate-x)) skewX(-20deg) rotate(0deg) translateY(0);
-    }
-  }
-
-  @keyframes wiggle {
-    0% {
-      transform: translateX(var(--translate-x)) skewX(-20deg) rotate(0deg);
-    }
-    50% {
-      transform: translateX(var(--translate-x)) skewX(-15deg) rotate(2deg);
-    }
-    100% {
-      transform: translateX(var(--translate-x)) skewX(-20deg) rotate(0deg);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .animate-in .light-beam {
-      --translate-x: 60%;
-      width: 200px;
-      height: 300px;
     }
   }
 </style>
