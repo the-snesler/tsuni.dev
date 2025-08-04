@@ -26,7 +26,10 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [tailwindcss(), glsl({ minify: true })]
+    plugins: [tailwindcss(), glsl({ minify: true })],
+    build: {
+      sourcemap: true
+    }
   },
 
   markdown: {
