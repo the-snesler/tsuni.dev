@@ -34,7 +34,7 @@ let activeIndex = links.findIndex(link => link.href === currentPath);
     <div class="flex-grow"></div>
     <nav>
       <ul
-        class="bg-bkg/30 header-link-group inset-shadow-accent/40 flex h-10 flex-row items-stretch justify-around gap-2 rounded-lg p-0.5 inset-shadow-xs"
+        class="bg-bkg/30 header-link-group inset-shadow-accent/40 flex h-10 flex-row items-stretch justify-around gap-1 rounded-lg p-0.5 inset-shadow-xs sm:gap-2"
       >
         {
           links.map((link, i) => {
@@ -50,12 +50,12 @@ let activeIndex = links.findIndex(link => link.href === currentPath);
                 <a
                   href={link.href}
                   class:list={[
-                    'inset-shadow-accent flex h-full items-center gap-2 rounded-md px-2 inset-shadow-none transition-[translate,background,box-shadow] group-hover:-translate-y-1.5 group-hover:bg-gray-200 group-hover:inset-shadow-xs group-active:translate-y-0 group-active:bg-gray-300 dark:group-hover:bg-gray-700 dark:group-active:bg-gray-700',
+                    'inset-shadow-accent flex h-full items-center gap-2 rounded-md px-1 inset-shadow-none transition-[translate,background,box-shadow] group-hover:-translate-y-1.5 group-hover:bg-gray-200 group-hover:inset-shadow-xs group-active:translate-y-0 group-active:bg-gray-300 sm:px-2 dark:group-hover:bg-gray-700 dark:group-active:bg-gray-700',
                     { 'bg-gray-200 dark:bg-gray-700': isActive }
                   ]}
                 >
                   {link.icon && <Icon name={link.icon} size={24} class="header-icon" />}
-                  {link.name}
+                  <span class="hidden sm:inline">{link.name}</span>
                 </a>
               </li>
             );
