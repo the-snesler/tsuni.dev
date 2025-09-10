@@ -18,7 +18,7 @@ export interface Props {
 const { buttons, animateDelay } = Astro.props;
 
 const getAnimationDelayStyle = (index: number, baseDelay: number) => {
-  return `animation-delay: ${(index + baseDelay) * 0.1 + 1}s;`;
+  return { animationDelay: `${(index + baseDelay) * 0.1 + 1}s` };
 };
 ---
 
@@ -38,7 +38,11 @@ const getAnimationDelayStyle = (index: number, baseDelay: number) => {
   {
     buttons.map((button: ButtonProps, index: number) => (
       <li class="relative text-center">
-        <a href={button.href} class="icon-row-link px-3 py-2 motion-safe:opacity-0 fill-mode-forwards" style={getAnimationDelayStyle(index, animateDelay)}>
+        <a
+          href={button.href}
+          class:list={['icon-row-link fill-mode-forwards inline-block px-3 py-2 motion-safe:opacity-0', textStyles['pastelTextHover']]}
+          style={{ ...getAnimationDelayStyle(index, animateDelay), '--data-degree': `${(index * 180) / buttons.length + 180}deg` }}
+        >
           <Icon name={button.iconName} size={24} />
           <p class="visible-hidden">{button.title}</p>
         </a>
