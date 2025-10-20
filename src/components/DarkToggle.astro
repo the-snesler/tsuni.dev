@@ -67,7 +67,5 @@ import { Icon } from 'astro-icon/components';
   // document.addEventListener('astro:after-swap', function () {
   //   if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.toggle('dark', true);
   // });
-  document.addEventListener('load', function () {
-    document.getElementById('dark-toggle')?.addEventListener('click', handleToggleClick);
-  });
+  document.getElementById('dark-toggle')?.addEventListener('click', handleToggleClick);
 </script>
