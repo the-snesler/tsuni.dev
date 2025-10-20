@@ -155,7 +155,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
 
     // Check if IP is blocked
     const blockedIPs = await getBlockedIPs(locals.runtime.env);
-    if (blockedIPs.has(clientIP || "---")) {
+    if (blockedIPs.has(clientIP || '---')) {
       return new Response('Unable to process request at this time', { status: 503 });
     }
 

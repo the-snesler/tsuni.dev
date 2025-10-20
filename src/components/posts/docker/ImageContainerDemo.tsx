@@ -50,12 +50,15 @@ function reducer(state: State, action: Action): State {
       const tempId = `building-${Date.now()}`;
       return {
         ...state,
-        images: [...state.images, {
-          id: tempId,
-          name: 'my-app',
-          tag: 'latest',
-          isBuilding: true
-        }]
+        images: [
+          ...state.images,
+          {
+            id: tempId,
+            name: 'my-app',
+            tag: 'latest',
+            isBuilding: true
+          }
+        ]
       };
     }
 
@@ -66,17 +69,13 @@ function reducer(state: State, action: Action): State {
       const newId = generateId();
       return {
         ...state,
-        images: state.images.map(img =>
-          img.isBuilding ? { ...img, id: newId, isBuilding: false } : img
-        )
+        images: state.images.map(img => (img.isBuilding ? { ...img, id: newId, isBuilding: false } : img))
       };
     }
 
     case 'DELETE_IMAGE': {
       // Can't delete if containers are using it
-      const hasRunningContainers = state.containers.some(
-        c => c.imageId === action.imageId
-      );
+      const hasRunningContainers = state.containers.some(c => c.imageId === action.imageId);
       if (hasRunningContainers) return state;
 
       return {
@@ -106,9 +105,7 @@ function reducer(state: State, action: Action): State {
     case 'STOP_CONTAINER': {
       return {
         ...state,
-        containers: state.containers.map(c =>
-          c.id === action.containerId ? { ...c, status: 'stopped' } : c
-        )
+        containers: state.containers.map(c => (c.id === action.containerId ? { ...c, status: 'stopped' } : c))
       };
     }
 
@@ -163,7 +160,7 @@ export default function ImageContainerDemo() {
       <div className="sticky top-20 flex flex-col gap-4">
         {/* Dockerfile Section */}
         <div className="rounded-lg border border-gray-700 bg-gray-800 p-4">
-          <div className="flex items-center justify-between mb-3">
+          <div className="mb-3 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-white">Dockerfile</h3>
             <button
               onClick={handleBuild}
@@ -173,7 +170,7 @@ export default function ImageContainerDemo() {
               Build
             </button>
           </div>
-          <pre className="text-xs bg-gray-900 rounded p-3 overflow-x-auto font-mono text-gray-300 max-h-32 overflow-y-auto">
+          <pre className="max-h-32 overflow-x-auto overflow-y-auto rounded bg-gray-900 p-3 font-mono text-xs text-gray-300">
             {state.dockerfileCode}
           </pre>
         </div>
@@ -182,7 +179,7 @@ export default function ImageContainerDemo() {
         <div className="grid grid-cols-2 gap-4">
           {/* Images */}
           <div className="rounded-lg border border-gray-700 bg-gray-800 p-4">
-            <h3 className="text-sm font-semibold text-white mb-3">Images</h3>
+            <h3 className="mb-3 text-sm font-semibold text-white">Images</h3>
             <div className="flex flex-col gap-2">
               {state.images.length === 0 ? (
                 <p className="text-xs text-gray-400 italic">No images built yet</p>
@@ -190,33 +187,29 @@ export default function ImageContainerDemo() {
                 state.images.map(image => (
                   <div
                     key={image.id}
-                    className={`group relative rounded-md p-2 text-sm border ${
-                      image.isBuilding
-                        ? 'bg-blue-900/20 border-blue-500/50 animate-pulse'
-                        : 'bg-blue-900/30 border-blue-500/50'
+                    className={`group relative rounded-md border p-2 text-sm ${
+                      image.isBuilding ? 'animate-pulse border-blue-500/50 bg-blue-900/20' : 'border-blue-500/50 bg-blue-900/30'
                     }`}
                   >
                     {image.isBuilding && (
                       <div className="absolute inset-0 overflow-hidden rounded-md">
-                        <div className="h-full w-full bg-gradient-to-r from-transparent via-blue-400/20 to-transparent animate-shimmer" />
+                        <div className="animate-shimmer h-full w-full bg-gradient-to-r from-transparent via-blue-400/20 to-transparent" />
                       </div>
                     )}
                     <div className="relative flex items-center justify-between">
-                      <span className="text-blue-200 font-mono text-xs">
-                        {image.isBuilding ? 'Building...' : `${image.name}:${image.tag}`}
-                      </span>
+                      <span className="font-mono text-xs text-blue-200">{image.isBuilding ? 'Building...' : `${image.name}:${image.tag}`}</span>
                       {!image.isBuilding && (
-                        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                           <button
                             onClick={() => handleRunContainer(image.id)}
-                            className="text-xs px-2 py-0.5 bg-green-600 hover:bg-green-500 rounded text-white"
+                            className="rounded bg-green-600 px-2 py-0.5 text-xs text-white hover:bg-green-500"
                             title="Run container"
                           >
                             Run
                           </button>
                           <button
                             onClick={() => handleDeleteImage(image.id)}
-                            className="text-xs px-2 py-0.5 bg-red-600 hover:bg-red-500 rounded text-white"
+                            className="rounded bg-red-600 px-2 py-0.5 text-xs text-white hover:bg-red-500"
                             title="Delete image"
                           >
                             Delete
@@ -232,7 +225,7 @@ export default function ImageContainerDemo() {
 
           {/* Containers */}
           <div className="rounded-lg border border-gray-700 bg-gray-800 p-4">
-            <h3 className="text-sm font-semibold text-white mb-3">Containers</h3>
+            <h3 className="mb-3 text-sm font-semibold text-white">Containers</h3>
             <div className="flex flex-col gap-2">
               {state.containers.length === 0 ? (
                 <p className="text-xs text-gray-400 italic">No containers running</p>
@@ -240,30 +233,22 @@ export default function ImageContainerDemo() {
                 state.containers.map(container => (
                   <div
                     key={container.id}
-                    className={`group relative rounded-md p-2 text-sm border ${
-                      container.status === 'running'
-                        ? 'bg-green-900/30 border-green-500/50'
-                        : 'bg-red-900/30 border-red-500/50'
+                    className={`group relative rounded-md border p-2 text-sm ${
+                      container.status === 'running' ? 'border-green-500/50 bg-green-900/30' : 'border-red-500/50 bg-red-900/30'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span
-                          className={`w-2 h-2 rounded-full ${
-                            container.status === 'running' ? 'bg-green-500' : 'bg-red-500'
-                          }`}
-                        />
-                        <span className={`font-mono text-xs ${
-                          container.status === 'running' ? 'text-green-200' : 'text-red-200'
-                        }`}>
+                        <span className={`h-2 w-2 rounded-full ${container.status === 'running' ? 'bg-green-500' : 'bg-red-500'}`} />
+                        <span className={`font-mono text-xs ${container.status === 'running' ? 'text-green-200' : 'text-red-200'}`}>
                           {container.name}
                         </span>
                       </div>
-                      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                         {container.status === 'running' ? (
                           <button
                             onClick={() => handleStopContainer(container.id)}
-                            className="text-xs px-2 py-0.5 bg-yellow-600 hover:bg-yellow-500 rounded text-white"
+                            className="rounded bg-yellow-600 px-2 py-0.5 text-xs text-white hover:bg-yellow-500"
                             title="Stop container"
                           >
                             Stop
@@ -271,7 +256,7 @@ export default function ImageContainerDemo() {
                         ) : (
                           <button
                             onClick={() => handleRunContainer(container.imageId)}
-                            className="text-xs px-2 py-0.5 bg-green-600 hover:bg-green-500 rounded text-white"
+                            className="rounded bg-green-600 px-2 py-0.5 text-xs text-white hover:bg-green-500"
                             title="Start container"
                           >
                             Start
@@ -279,7 +264,7 @@ export default function ImageContainerDemo() {
                         )}
                         <button
                           onClick={() => handleDeleteContainer(container.id)}
-                          className="text-xs px-2 py-0.5 bg-red-600 hover:bg-red-500 rounded text-white"
+                          className="rounded bg-red-600 px-2 py-0.5 text-xs text-white hover:bg-red-500"
                           title="Delete container"
                         >
                           Delete
@@ -294,8 +279,10 @@ export default function ImageContainerDemo() {
         </div>
 
         {/* Info */}
-        <div className="text-xs text-gray-400 bg-gray-800/50 rounded p-3 border border-gray-700">
-          <p className="mb-1"><strong className="text-gray-300">Tip:</strong> Click Build to create an image from the Dockerfile.</p>
+        <div className="rounded border border-gray-700 bg-gray-800/50 p-3 text-xs text-gray-400">
+          <p className="mb-1">
+            <strong className="text-gray-300">Tip:</strong> Click Build to create an image from the Dockerfile.
+          </p>
           <p>Click Run on an image to start a container. Hover over items to see actions.</p>
         </div>
       </div>

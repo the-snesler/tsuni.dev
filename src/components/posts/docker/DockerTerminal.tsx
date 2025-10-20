@@ -144,7 +144,7 @@ docker.io/library/node:18-alpine`,
   'docker push my-app': `The push refers to repository [docker.io/library/my-app]
 abc123: Pushed
 def456: Pushed
-latest: digest: sha256:abc123def456 size: 1234`,
+latest: digest: sha256:abc123def456 size: 1234`
 };
 
 export default function DockerTerminal() {
@@ -190,7 +190,7 @@ export default function DockerTerminal() {
       if (commandStart === 'docker') {
         // Handle unrecognized docker commands
         if (normalizedInput === 'docker') {
-          response = 'docker: \'docker\' is not a docker command.\nSee \'docker --help\'';
+          response = "docker: 'docker' is not a docker command.\nSee 'docker --help'";
         } else {
           response = `docker: '${normalizedInput.split(' ')[1]}' is not a docker command.\nSee 'docker --help'`;
         }
@@ -203,7 +203,7 @@ export default function DockerTerminal() {
     const responseLines = Array.isArray(response) ? response : [response];
     const outputLines = responseLines.flatMap(r =>
       r.split('\n').map(line => ({
-        type: (line.includes('not found') || line.includes('is not a docker command')) ? 'error' as const : 'output' as const,
+        type: line.includes('not found') || line.includes('is not a docker command') ? ('error' as const) : ('output' as const),
         content: line
       }))
     );
@@ -216,9 +216,7 @@ export default function DockerTerminal() {
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (commandHistory.length > 0) {
-        const newIndex = historyIndex === -1
-          ? commandHistory.length - 1
-          : Math.max(0, historyIndex - 1);
+        const newIndex = historyIndex === -1 ? commandHistory.length - 1 : Math.max(0, historyIndex - 1);
         setHistoryIndex(newIndex);
         setInput(commandHistory[newIndex]);
       }
@@ -246,40 +244,29 @@ export default function DockerTerminal() {
 
   return (
     <div className="aside-tall">
-      <div className="sticky top-20 flex flex-col rounded-lg border border-gray-700 bg-gray-900 overflow-hidden">
+      <div className="sticky top-20 flex flex-col overflow-hidden rounded-lg border border-gray-700 bg-gray-900">
         {/* Terminal Header */}
-        <div className="flex items-center justify-between bg-gray-800 px-4 py-2 border-b border-gray-700">
+        <div className="flex items-center justify-between border-b border-gray-700 bg-gray-800 px-4 py-2">
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <div className="h-3 w-3 rounded-full bg-red-500"></div>
+              <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
+              <div className="h-3 w-3 rounded-full bg-green-500"></div>
             </div>
-            <span className="ml-2 text-sm text-gray-300 font-mono">docker-terminal</span>
+            <span className="ml-2 font-mono text-sm text-gray-300">docker-terminal</span>
           </div>
-          <button
-            onClick={handleClear}
-            className="text-xs px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-300"
-          >
+          <button onClick={handleClear} className="rounded bg-gray-700 px-3 py-1 text-xs text-gray-300 hover:bg-gray-600">
             Clear
           </button>
         </div>
 
         {/* Terminal Content */}
-        <div
-          ref={terminalRef}
-          className="flex-1 overflow-y-auto p-4 font-mono text-sm max-h-[500px]"
-          onClick={() => inputRef.current?.focus()}
-        >
+        <div ref={terminalRef} className="max-h-[500px] flex-1 overflow-y-auto p-4 font-mono text-sm" onClick={() => inputRef.current?.focus()}>
           {lines.map((line, i) => (
             <div
               key={i}
               className={`${
-                line.type === 'input'
-                  ? 'text-green-400'
-                  : line.type === 'error'
-                  ? 'text-red-400'
-                  : 'text-gray-300'
+                line.type === 'input' ? 'text-green-400' : line.type === 'error' ? 'text-red-400' : 'text-gray-300'
               } ${line.content === '' ? 'h-4' : ''}`}
             >
               {line.content || '\u00A0'}
@@ -293,17 +280,20 @@ export default function DockerTerminal() {
               ref={inputRef}
               type="text"
               value={input}
-              onInput={(e) => setInput((e.target as HTMLInputElement).value)}
+              onInput={e => setInput((e.target as HTMLInputElement).value)}
               onKeyDown={handleKeyDown}
-              className="flex-1 bg-transparent outline-none caret-green-400"
+              className="flex-1 bg-transparent caret-green-400 outline-none"
               spellcheck={false}
             />
           </form>
         </div>
 
         {/* Helper Info */}
-        <div className="bg-gray-800/50 px-4 py-2 border-t border-gray-700 text-xs text-gray-400">
-          <p>Try: <code className="text-blue-400">docker images</code>, <code className="text-blue-400">docker ps</code>, <code className="text-blue-400">docker build -t my-app .</code></p>
+        <div className="border-t border-gray-700 bg-gray-800/50 px-4 py-2 text-xs text-gray-400">
+          <p>
+            Try: <code className="text-blue-400">docker images</code>, <code className="text-blue-400">docker ps</code>,{' '}
+            <code className="text-blue-400">docker build -t my-app .</code>
+          </p>
           <p className="mt-1">Use ↑/↓ arrows for command history</p>
         </div>
       </div>

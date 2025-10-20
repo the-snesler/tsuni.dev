@@ -15,12 +15,16 @@ interface Props {
 const { name, certUrl, collectionUrl, src, year } = Astro.props;
 ---
 
-<HoverCard class="hidden col-span-1 flex-grow sm:block">
-  <div
-    class="bg-yellow-50 group h-56 overflow-clip shadow-xl duration-200"
-  >
+<HoverCard class="col-span-1 hidden flex-grow sm:block">
+  <div class="group h-56 overflow-clip bg-yellow-50 shadow-xl duration-200">
     <a class="absolute inset-0" href={certUrl}>
-      <Image {src} alt={name} class="w-full h-full p-1 object-contain rotate-2 group-hover:-rotate-3 transition-transform drop-shadow-lg" widths={[300, 600]} sizes="(max-width: 600px) 100vw, (max-width: 1024px) 66vw, 33vw" />
+      <Image
+        {src}
+        alt={name}
+        class="h-full w-full rotate-2 object-contain p-1 drop-shadow-lg transition-transform group-hover:-rotate-3"
+        widths={[300, 600]}
+        sizes="(max-width: 600px) 100vw, (max-width: 1024px) 66vw, 33vw"
+      />
       <div class="bg-bkg/75 absolute right-0 bottom-0 rounded-tl-lg px-2 text-ellipsis whitespace-nowrap shadow-lg">
         <span class="text-sm font-bold text-slate-900 italic dark:text-white">
           {year}

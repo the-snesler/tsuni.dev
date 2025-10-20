@@ -15,7 +15,7 @@ const { title, subtitle, image } = frontmatter;
     focus: true
   }}
 >
-  <PostWrapper {title} {subtitle} {headings} id={title} image={image}>
+  <PostWrapper {title} {subtitle} {headings} id={title} {image}>
     <slot />
   </PostWrapper>
 </Layout>

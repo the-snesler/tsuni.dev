@@ -1,8 +1,8 @@
 export interface WaterConfig {
-  height?: number;           // Canvas height (default: 300px)
-  subdivisions?: number;     // Plane detail (default: 32)
-  animationSpeed?: number;   // Animation multiplier (default: 1.0)
-  waveAmplitude?: number;    // Ripple strength (default: 0.02)
+  height?: number; // Canvas height (default: 300px)
+  subdivisions?: number; // Plane detail (default: 32)
+  animationSpeed?: number; // Animation multiplier (default: 1.0)
+  waveAmplitude?: number; // Ripple strength (default: 0.02)
 }
 
 export interface WaterUniforms {

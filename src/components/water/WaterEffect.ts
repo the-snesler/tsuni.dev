@@ -8,21 +8,19 @@ const checkTheme = () => {
   return {
     uWaterCol: {
       value: isDark
-        ? [0.2353, 0.0118, 0.4000] // #3c0366
-        : [0.8549, 0.6980, 1.0000] // #dab2ff
+        ? [0.2353, 0.0118, 0.4] // #3c0366
+        : [0.8549, 0.698, 1.0] // #dab2ff
     },
     uWater2Col: {
-      value: isDark
-        ? [0.3, 0.11, 0.56]
-        : [0.6824, 0.5569, 0.8000] // #ae8ecc
+      value: isDark ? [0.3, 0.11, 0.56] : [0.6824, 0.5569, 0.8] // #ae8ecc
     },
     uFoamCol: {
       value: isDark
         ? [0.1922, 0.1725, 0.5216] // #312c85
-        : [0.9882, 0.8000, 0.9098] // #fccee8
+        : [0.9882, 0.8, 0.9098] // #fccee8
     }
   };
-}
+};
 export class WaterEffect {
   private renderer: Renderer;
   private camera: Camera;
@@ -53,7 +51,7 @@ export class WaterEffect {
       height: canvas.height,
       alpha: true,
       antialias: false,
-      premultipliedAlpha: true,
+      premultipliedAlpha: true
     });
 
     // Set up camera with perspective view from below
@@ -61,7 +59,7 @@ export class WaterEffect {
       fov: 90,
       aspect: canvas.width / canvas.height,
       near: 0.01,
-      far: 100,
+      far: 100
     });
 
     this.camera.position.set(0, -5, -2);
@@ -75,7 +73,7 @@ export class WaterEffect {
       uResolution: { value: [canvas.width, canvas.height] },
       uCameraDirection: { value: [0, 1, -1] },
       uCameraPosition: { value: [0, -5, -2] },
-      ...checkTheme(),
+      ...checkTheme()
     };
 
     // Create shader program

@@ -9,7 +9,7 @@ Here's a list of the tools, software and many other things that I use on a daily
 
 ## Browser
 
-It used to be [Firefox](https://www.firefox.com/en-US/) with lots of extensions to make it look and feel like [Arc](https://arc.net/), but then [Zen](https://zen-browser.app/) came out and I switched to it. 
+It used to be [Firefox](https://www.firefox.com/en-US/) with lots of extensions to make it look and feel like [Arc](https://arc.net/), but then [Zen](https://zen-browser.app/) came out and I switched to it.
 
 Zen is an open-source Firefox fork with many of the same UI features as Arc, and it's still receiving support (unlike Arc, RIP). It also works better on my Windows desktop and laptop than Arc did.
 
@@ -41,14 +41,8 @@ I have a desktop and laptop that I love dearly.
 import Card from '@/components/cards/Card.astro';
 
 <div class="grid gap-4 md:grid-cols-2">
-  <Card>**Desktop** 
-  OS: Windows 11 
-  CPU: Intel Core i5-10600KF 
-  GPU: Nvidia RTX 4060 Ti 16gb</Card>
-  <Card>**Laptop** 
-  OS: Windows 11 
-  Model: ASUS Zenbook 
-  CPU: AMD Ryzen 7-7730U</Card>
+  <Card>**Desktop** OS: Windows 11 CPU: Intel Core i5-10600KF GPU: Nvidia RTX 4060 Ti 16gb</Card>
+  <Card>**Laptop** OS: Windows 11 Model: ASUS Zenbook CPU: AMD Ryzen 7-7730U</Card>
 </div>
 
 ## Windows Apps
@@ -61,24 +55,22 @@ import Card from '@/components/cards/Card.astro';
 - [Raycast](https://raycast.com/) - My launcher of choice, recently in beta for Windows. I loved it back on my Mac, and I feel it beats PowerToys Run and even the new Windows Command Palette in terms of speed and stability. It already has a great library of extensions, and I'm excited for future development!
 - [ShareX](https://getsharex.com/) - Screenshotting and screen recording app.
 - [Spark](https://sparkmailapp.com/) - As far as I know, Spark is the only 1) nice-looking 2) native Windows mail app that is 3) free and has 4) automatic categories.
-- [Vividl](https://sourceforge.net/projects/vividl/) - Great free YouTube video downloader. Functionally a frontend for yt-dlp, so it doesn't  *usually* break.
+- [Vividl](https://sourceforge.net/projects/vividl/) - Great free YouTube video downloader. Functionally a frontend for yt-dlp, so it doesn't _usually_ break.
 - [Yasb](https://github.com/amnweb/yasb) - A highly configurable Windows status bar written in Python. Between this, Raycast, and Zen, I wonder if I should just go back to MacOS?
 
 # Homelab
 
 This is how I got into programming in the first place. There's no magic quite like wiring up 6 Docker containers on a $150 Windows box and getting a website out of it, and I've continued that for about 8 years to my still-modest current setup.
 
-<Card>**Inkstation** 
-OS: OpenMediaVault 
-CPU: Intel i5-2500S 
-Uptime: too long</Card>
+<Card>**Inkstation** OS: OpenMediaVault CPU: Intel i5-2500S Uptime: too long</Card>
 
 ## Homelab Services
-A homelab is nothing without something for it to host. These ones are my favorites, either because they're the best of the alternatives I tried or they're just really cool: 
+
+A homelab is nothing without something for it to host. These ones are my favorites, either because they're the best of the alternatives I tried or they're just really cool:
 
 - [Authelia](https://www.authelia.com/) - No-nonsense auth provider that makes securing other apps straightforward.
 - [Authentik](https://goauthentik.io/) - ...that said, Authentik is harder to set up but way more flexible.
-- [Bluemap](https://bluemap.bluecolored.de/) - Serves 3D maps of Minecraft worlds over the web. Check out [past worlds](https://mcarchive.tsuni.dev) and [maybe even my current server](https://mc.tsuni.dev).  
+- [Bluemap](https://bluemap.bluecolored.de/) - Serves 3D maps of Minecraft worlds over the web. Check out [past worlds](https://mcarchive.tsuni.dev) and [maybe even my current server](https://mc.tsuni.dev).
 - [Caddy](https://caddyserver.com/) - A reverse proxy that's much simpler to set up than nginx or Traefik.
 - [Caddy-Docker-Proxy](https://github.com/lucaslorentz/caddy-docker-proxy) - Wonderful Caddy extension that makes deploying new containers to a subdomain as [easy as 2 labels on a container](https://gist.github.com/the-snesler/11dcda9bbbccb56416f773ddda376b99).
 - [Calibre-web](https://github.com/janeczku/calibre-web) - Drop-in replacement for my Kobo e-reader's sync server, allowing me to get books to it from anywhere.

@@ -1,17 +1,13 @@
 // https://github.com/Princesseuh/erika.florist/blob/main/src/imageService.ts
-import type { LocalImageService } from "astro";
-import sharpService from "astro/assets/services/sharp";
-import { shorthash } from "astro/runtime/server/shorthash.js";
-import { mkdirSync, readFileSync, writeFileSync } from "fs";
-import sharp from "sharp";
+import type { LocalImageService } from 'astro';
+import sharpService from 'astro/assets/services/sharp';
+import { shorthash } from 'astro/runtime/server/shorthash.js';
+import { mkdirSync, readFileSync, writeFileSync } from 'fs';
+import sharp from 'sharp';
 
-const CACHE_PATH = "./node_modules/.astro/placeholders/";
+const CACHE_PATH = './node_modules/.astro/placeholders/';
 
-function getBitmapDimensions(
-  imgWidth: number,
-  imgHeight: number,
-  pixelTarget: number,
-): { width: number; height: number } {
+function getBitmapDimensions(imgWidth: number, imgHeight: number, pixelTarget: number): { width: number; height: number } {
   // Aims for a bitmap of ~P pixels (w * h = ~P).
   // Gets the ratio of the width to the height. (r = w0 / h0 = w / h)
   const ratioWH = imgWidth / imgHeight;
@@ -36,12 +32,7 @@ type ImageMetadataInternal = ImageMetadata & {
 };
 
 export interface LocalImageServiceWithPlaceholder extends LocalImageService {
-  generatePlaceholder: (
-    src: ImageMetadata,
-    width: number,
-    height: number,
-    quality?: number,
-  ) => Promise<string>;
+  generatePlaceholder: (src: ImageMetadata, width: number, height: number, quality?: number) => Promise<string>;
 }
 
 const service: LocalImageServiceWithPlaceholder = {
@@ -50,7 +41,7 @@ const service: LocalImageServiceWithPlaceholder = {
     const attributes = await sharpService.getHTMLAttributes!(options, imageConfig);
 
     // Use the original dimensions of the image for the width and height attributes. Maybe that Astro should do this by default? Not sure, and I can only blame myself.
-    if (options.densities && typeof options.src === "object") {
+    if (options.densities && typeof options.src === 'object') {
       attributes.width = options.src.width;
       attributes.height = options.src.height;
     }
@@ -63,7 +54,7 @@ const service: LocalImageServiceWithPlaceholder = {
 
     if (import.meta.env.PROD) {
       try {
-        return readFileSync(CACHE_PATH + hash, "utf-8");
+        return readFileSync(CACHE_PATH + hash, 'utf-8');
       } catch {
         /* empty */
       }
@@ -73,18 +64,16 @@ const service: LocalImageServiceWithPlaceholder = {
     const originalFileBuffer = readFileSync((src as ImageMetadataInternal).fsPath);
 
     const placeholderBuffer = await sharp(originalFileBuffer)
-      .resize(placeholderDimensions.width, placeholderDimensions.height, { fit: "inside" })
-      .toFormat("webp", { quality: 1 })
+      .resize(placeholderDimensions.width, placeholderDimensions.height, { fit: 'inside' })
+      .toFormat('webp', { quality: 1 })
       .modulate({
         brightness: 1,
-        saturation: 1.2,
+        saturation: 1.2
       })
       .blur()
       .toBuffer({ resolveWithObject: true });
 
-    const result = `data:image/${placeholderBuffer.info.format};base64,${placeholderBuffer.data.toString(
-      "base64",
-    )}`;
+    const result = `data:image/${placeholderBuffer.info.format};base64,${placeholderBuffer.data.toString('base64')}`;
 
     if (import.meta.env.PROD) {
       mkdirSync(CACHE_PATH, { recursive: true });
@@ -92,7 +81,7 @@ const service: LocalImageServiceWithPlaceholder = {
     }
 
     return result;
-  },
+  }
 };
 
 export default service;

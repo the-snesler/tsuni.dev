@@ -29,7 +29,7 @@ const challenges: Challenge[] = [
       if (!hasNode) {
         return { isValid: false, feedback: 'Try using a Node.js base image (hint: node:18-alpine)' };
       }
-      return { isValid: true, feedback: 'Great! You\'ve specified a base image. Click Next to continue.' };
+      return { isValid: true, feedback: "Great! You've specified a base image. Click Next to continue." };
     }
   },
   {
@@ -43,7 +43,7 @@ const challenges: Challenge[] = [
       const hasApp = code.includes('/app');
 
       if (!hasFrom) {
-        return { isValid: false, feedback: 'Don\'t forget the FROM instruction from the previous challenge!' };
+        return { isValid: false, feedback: "Don't forget the FROM instruction from the previous challenge!" };
       }
       if (!hasWorkdir) {
         return { isValid: false, feedback: 'Missing WORKDIR instruction. Use it to set the working directory.' };
@@ -51,7 +51,7 @@ const challenges: Challenge[] = [
       if (!hasApp) {
         return { isValid: false, feedback: 'Set the working directory to /app' };
       }
-      return { isValid: true, feedback: 'Perfect! You\'ve set the working directory. Click Next to continue.' };
+      return { isValid: true, feedback: "Perfect! You've set the working directory. Click Next to continue." };
     }
   },
   {
@@ -124,7 +124,7 @@ const challenges: Challenge[] = [
       if (!hasNode) {
         return { isValid: false, feedback: 'Run node with your application file (e.g., node index.js).' };
       }
-      return { isValid: true, feedback: '🎉 Congratulations! You\'ve created your first complete Dockerfile!' };
+      return { isValid: true, feedback: "🎉 Congratulations! You've created your first complete Dockerfile!" };
     }
   }
 ];
@@ -137,21 +137,27 @@ export default function DockerfilePlayground() {
 
   const challenge = challenges[currentChallenge];
 
-  const validateCode = useCallback((code: string) => {
-    const result = challenge.validate(code);
-    setFeedback(result.feedback);
-    setIsValid(result.isValid);
-  }, [challenge]);
+  const validateCode = useCallback(
+    (code: string) => {
+      const result = challenge.validate(code);
+      setFeedback(result.feedback);
+      setIsValid(result.isValid);
+    },
+    [challenge]
+  );
 
   useEffect(() => {
     setCode(challenge.initialCode);
     validateCode(challenge.initialCode);
   }, [currentChallenge, challenge, validateCode]);
 
-  const handleCodeChange = useCallback((value: string) => {
-    setCode(value);
-    validateCode(value);
-  }, [validateCode]);
+  const handleCodeChange = useCallback(
+    (value: string) => {
+      setCode(value);
+      validateCode(value);
+    },
+    [validateCode]
+  );
 
   const handleNext = () => {
     if (currentChallenge < challenges.length - 1) {
@@ -208,11 +214,13 @@ export default function DockerfilePlayground() {
             searchKeymap: true,
             foldKeymap: true,
             completionKeymap: true,
-            lintKeymap: true,
+            lintKeymap: true
           }}
         />
 
-        <div className={`rounded-md p-3 text-sm ${isValid ? 'bg-green-900/30 border border-green-500/50 text-green-200' : 'bg-blue-900/30 border border-blue-500/50 text-blue-200'}`}>
+        <div
+          className={`rounded-md p-3 text-sm ${isValid ? 'border border-green-500/50 bg-green-900/30 text-green-200' : 'border border-blue-500/50 bg-blue-900/30 text-blue-200'}`}
+        >
           {feedback || 'Start writing your Dockerfile...'}
         </div>
 
@@ -221,27 +229,24 @@ export default function DockerfilePlayground() {
             <button
               onClick={handlePrev}
               disabled={currentChallenge === 0}
-              className="rounded-md bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-md bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Previous
             </button>
             <button
               onClick={handleNext}
               disabled={currentChallenge === challenges.length - 1 || !isValid}
-              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Next
             </button>
           </div>
-          <button
-            onClick={handleReset}
-            className="rounded-md bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600"
-          >
+          <button onClick={handleReset} className="rounded-md bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600">
             Reset
           </button>
         </div>
 
-        <div className="text-xs text-gray-400 text-center">
+        <div className="text-center text-xs text-gray-400">
           Challenge {currentChallenge + 1} of {challenges.length}
         </div>
       </div>
