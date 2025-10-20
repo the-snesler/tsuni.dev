@@ -4,6 +4,7 @@ import { getCollection, render } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import TimeHeader from '@/components/posts/TimeHeader.astro';
 import PostWrapper from '@/components/posts/PostWrapper.astro';
+import DualColWrapper from '@/components/posts/DualColWrapper.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -26,8 +27,20 @@ const { Content, headings } = await render(post);
     focus: true
   }}
 >
-  <PostWrapper title={post.data.title} subtitle={post.data.subtitle} {headings} id={post.data.title} image={post.data.excerptImageUrl?.src}>
-    <TimeHeader {post} />
-    <Content />
-  </PostWrapper>
+  {
+    post.data.postLayout === 'dual' && (
+      <DualColWrapper title={post.data.title} subtitle={post.data.subtitle} {headings} id={post.data.title} image={post.data.excerptImageUrl?.src}>
+        <TimeHeader {post} />
+        <Content />
+      </DualColWrapper>
+    )
+  }
+  {
+    post.data.postLayout === 'std' && (
+      <PostWrapper title={post.data.title} subtitle={post.data.subtitle} {headings} id={post.data.title} image={post.data.excerptImageUrl?.src}>
+        <TimeHeader {post} />
+        <Content />
+      </PostWrapper>
+    )
+  }
 </Layout>

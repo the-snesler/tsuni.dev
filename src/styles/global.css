@@ -37,8 +37,17 @@
       transform: translateY(0);
     }
   }
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
   --animate-bounce-slow: bounce 2s infinite;
   --animate-fade-up: fadeUp 0.5s cubic-bezier(0.34, 0, 0.44, 1.76) forwards;
+  --animate-shimmer: shimmer 2s infinite;
   --shadow-i-sm: 0px 0px 5px 0px #00000005, 0px 2px 10px 0px #00000002, inset 0px 0px 5px 0px hsla(0, 0%, 100%, 0.25);
   --shadow-i-md:
     0px 0px 15px 0px #00000006, 0px 2px 30px 0px #00000016, inset 0px 0px 5px 0px hsla(0, 0%, 100%, 0.25) --shadow-i-lg: 0px 0px 30px 0px #00000007,

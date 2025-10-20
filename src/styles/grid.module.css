@@ -31,12 +31,6 @@
     grid-gap: 0.5rem;
   }
 
-  .articleGridDual {
-    display: grid;
-    grid-template-columns: [wide-start] 1fr [content-start] minmax(0, 50rem) [content-end toc-start] minmax(0, 50rem) [toc-end] 1fr [wide-end];
-    grid-gap: 0.5rem;
-  }
-
   .articleToc {
     display: block;
     grid-column: toc-start / toc-end;

@@ -11,7 +11,8 @@ const blogCollection = defineCollection({
       date: z.date(),
       excerptImageUrl: image().optional(),
       excerptImageAlt: z.string().optional(),
-      excerpt: z.string().optional()
+      excerpt: z.string().optional(),
+      postLayout: z.enum(['std', 'dual']).default('std')
     })
 });
 
