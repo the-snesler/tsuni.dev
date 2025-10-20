@@ -18,7 +18,7 @@ export default function remarkSectionize() {
     if (parent) {
       const end = findAfter(parent, start, node => {
         // Find the next heading or the end of the document
-        return node.type === 'heading' || node.type === 'export' || node.type === 'mdxjsEsm';
+        return node.type === 'heading';
       });
 
       const startIndex = parent.children.indexOf(start);

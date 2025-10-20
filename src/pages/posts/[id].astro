@@ -1,7 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
-import Post from '@/layouts/Post.astro';
+import Layout from '@/layouts/Layout.astro';
+import TimeHeader from '@/components/posts/TimeHeader.astro';
+import PostWrapper from '@/components/posts/PostWrapper.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -11,6 +13,21 @@ export async function getStaticPaths() {
   }));
 }
 const { post } = Astro.props;
+const { Content, headings } = await render(post);
 ---
 
-<Post {post} />
+<Layout
+  metadata={{
+    title: post.data.title,
+    description: post.data.subtitle,
+    image: post.data.excerptImageUrl?.src
+  }}
+  theme={{
+    focus: true
+  }}
+>
+  <PostWrapper title={post.data.title} subtitle={post.data.subtitle} {headings} id={post.data.title} image={post.data.excerptImageUrl?.src}>
+    <TimeHeader {post} />
+    <Content />
+  </PostWrapper>
+</Layout>

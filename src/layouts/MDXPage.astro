@@ -1,0 +1,21 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import PostWrapper from '@/components/PostWrapper.astro';
+const { frontmatter, headings } = Astro.props;
+const { title, subtitle, image } = frontmatter;
+---
+
+<Layout
+  metadata={{
+    title,
+    description: subtitle,
+    image
+  }}
+  theme={{
+    focus: true
+  }}
+>
+  <PostWrapper {title} {subtitle} {headings} id={title} image={image}>
+    <slot />
+  </PostWrapper>
+</Layout>

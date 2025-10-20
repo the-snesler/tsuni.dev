@@ -1,10 +1,5 @@
 ---
-import 'rehype-callouts/theme/obsidian';
-
 import type { CollectionEntry } from 'astro:content';
-import { render } from 'astro:content';
-
-import PostOuter from '@/layouts/PostOuter.astro';
 
 const calculateReadingTime = (markdown: string): number => {
   const wpm = 225;
@@ -23,14 +18,10 @@ const date = new Date(post.data.date).toLocaleDateString('en-US', {
   day: 'numeric',
   timeZone: 'UTC'
 });
-const { Content, headings } = await render(post);
 ---
 
-<PostOuter {...post.data} id={post.id} {headings} image={post.data.excerptImageUrl?.src}>
-  <div class="mb-8 flex justify-between">
-    <p class="mb-0 text-sm">{date}</p>
-    <span class="border-b-accent mx-4 h-0 grow self-center border-b-2"></span>
-    <p class="mb-0 text-sm">{readingMinutes} minute read</p>
-  </div>
-  <Content />
-</PostOuter>
+<div class="mb-8 flex justify-between">
+  <p class="mb-0 text-sm">{date}</p>
+  <span class="border-b-accent mx-4 h-0 grow self-center border-b-2"></span>
+  <p class="mb-0 text-sm">{readingMinutes} minute read</p>
+</div>
