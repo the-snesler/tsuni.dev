@@ -122,7 +122,7 @@ const { height = 400, subdivisions = 32, animationSpeed = 1.0, waveAmplitude = 0
     }
   }
   // Handle page transitions (Astro)
-  document.addEventListener('astro:page-load', initWaterEffect);
+  document.addEventListener('load', initWaterEffect);
   document.addEventListener('astro:before-preparation', cleanup);
 
   // Handle resize

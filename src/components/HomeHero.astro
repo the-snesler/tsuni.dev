@@ -9,7 +9,7 @@ const fadeUpDelay = (i: number) => {
 
 <script>
   // wait for DOMContentLoaded before animating
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('load', () => {
     const parent = document.querySelector('#home') as HTMLElement | null;
     if (!parent) return;
     const words = document.querySelectorAll('.header-word');

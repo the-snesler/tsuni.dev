@@ -2,7 +2,6 @@
 import '@/styles/global.css';
 
 import Font from 'astro/components/Font.astro';
-import { ClientRouter } from 'astro:transitions';
 
 import Background from '@/components/Background.astro';
 // import Footer from '@/components/layouts/Footer.astro';
@@ -41,7 +40,6 @@ const { metadata = {}, theme = {} } = Astro.props;
         document.documentElement.classList.remove('noAnimate');
       });
     </script>
-    <ClientRouter fallback='swap' />
     <title>{metadata?.title || 'Tsuni!'}</title>
     <meta name="description" content={metadata?.description || "Tsuni's lovely site"} />
     <meta name="image" content={metadata?.image || 'https://tsuni.dev/images/port_website.png'} />

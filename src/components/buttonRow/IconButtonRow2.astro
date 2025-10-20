@@ -23,7 +23,7 @@ const getAnimationDelayStyle = (index: number, baseDelay: number) => {
 ---
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('load', () => {
     const parent = document.querySelector('#list') as HTMLElement | null;
     if (!parent) return;
     const links = document.querySelectorAll('.icon-row-link');

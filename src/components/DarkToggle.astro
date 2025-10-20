@@ -64,10 +64,10 @@ import { Icon } from 'astro-icon/components';
   };
 
   // https://www.reddit.com/r/webdev/comments/16iu3uf/how_do_i_get_dark_theme_working_when_using_view/
-  document.addEventListener('astro:after-swap', function () {
-    if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.toggle('dark', true);
-  });
-  document.addEventListener('astro:page-load', function () {
+  // document.addEventListener('astro:after-swap', function () {
+  //   if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.toggle('dark', true);
+  // });
+  document.addEventListener('load', function () {
     document.getElementById('dark-toggle')?.addEventListener('click', handleToggleClick);
   });
 </script>
