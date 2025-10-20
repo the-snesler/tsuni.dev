@@ -8,15 +8,11 @@ const fadeUpDelay = (i: number) => {
 ---
 
 <script>
-  // wait for DOMContentLoaded before animating
-  document.addEventListener('load', () => {
-    const parent = document.querySelector('#home') as HTMLElement | null;
-    if (!parent) return;
-    const words = document.querySelectorAll('.header-word');
-    const className = parent.dataset.textstyle;
-    words.forEach(word => {
-      word.classList.add(className || '');
-    });
+  const parent = document.querySelector('#home') as HTMLElement;
+  const words = document.querySelectorAll('.header-word');
+  const className = parent.dataset.textstyle;
+  words.forEach(word => {
+    word.classList.add(className || '');
   });
 </script>
 

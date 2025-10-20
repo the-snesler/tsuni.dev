@@ -23,11 +23,9 @@ const { class: className, headings, ...rest } = Astro.props;
 
 <script>
   import scrollSpy from 'simple-scrollspy';
-  document.addEventListener('load', () => {
-    scrollSpy('.scrollspy', {
-      sectionClass: 'section[id]',
-      offset: 400
-    });
+  scrollSpy('.scrollspy', {
+    sectionClass: 'section[id]',
+    offset: 400
   });
 </script>
 

@@ -149,9 +149,7 @@ let activeIndex = links.findIndex(link => link.href === currentPath);
   }
   document.addEventListener('scroll', scrollHeader);
 
-  document.addEventListener('load', () => {
-    scrollHeader();
-  });
+  scrollHeader();
 </script>
 
 <style>
