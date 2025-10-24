@@ -193,7 +193,7 @@ export default function ImageContainerDemo() {
                   >
                     {image.isBuilding && (
                       <div className="absolute inset-0 overflow-hidden rounded-md">
-                        <div className="animate-shimmer h-full w-full bg-gradient-to-r from-transparent via-blue-400/20 to-transparent" />
+                        <div className="bg-stripey animate-stripey-slide-right h-full w-full" />
                       </div>
                     )}
                     <div className="relative flex items-center justify-between">
