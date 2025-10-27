@@ -22,10 +22,14 @@
     {
       "pattern": "samnesler.com",
       "custom_domain": true
+    },
+    {
+      "pattern": "tsuni.dev",
+      "custom_domain": true
     }
   ],
   "vars": {
-    "GISCUS_REPO": "TetraTsunami/website",
+    "GISCUS_REPO": "the-snesler/tsuni.dev",
     "GISCUS_REPO_ID": "R_kgDOH7I1vQ",
     "GISCUS_CATEGORY": "Giscus",
     "GISCUS_CATEGORY_ID": "DIC_kwDOH7I1vc4CkBK1"
