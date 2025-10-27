@@ -20,7 +20,7 @@
   ],
   "routes": [
     {
-      "pattern": "tsuni.dev",
+      "pattern": "samnesler.com",
       "custom_domain": true
     }
   ],
