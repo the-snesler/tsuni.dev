@@ -9,7 +9,7 @@ const posts = await getCollection('blog');
 const sortedPosts = posts.filter(p => p.data.isVisible).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Layout metadata={{ title: 'Blog', description: "Tsuni's blog" }}>
+<Layout metadata={{ title: 'Blog', description: "Sam's blog" }}>
   <BackgroundWater animateIn={false} />
   <main class="min-h-screen pt-16 pb-8">
     <section id="posts" class="container mx-auto flex flex-col items-center justify-center">
