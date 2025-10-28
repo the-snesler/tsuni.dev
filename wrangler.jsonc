@@ -22,10 +22,6 @@
     {
       "pattern": "samnesler.com",
       "custom_domain": true
-    },
-    {
-      "pattern": "tsuni.dev",
-      "custom_domain": true
     }
   ],
   "vars": {
